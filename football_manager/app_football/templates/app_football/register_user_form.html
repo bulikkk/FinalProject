@@ -1,0 +1,9 @@
+{% extends 'app_football/index.html' %}
+
+{% block content %}
+<form action='' method='POST'>
+	{% csrf_token %}
+	{{ form }}
+	<button type='submit'>Register</button>
+</form>
+{% endblock %}

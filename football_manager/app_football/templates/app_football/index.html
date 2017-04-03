@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+    <body>
+
+    <h1>Welcome!</h1>
+
+        {% block content %}
+
+
+        {% endblock %}
+
+        {% csrf_token %}
+        Zalogowany jako: {{ user }}
+
+    </body>
+</html>
