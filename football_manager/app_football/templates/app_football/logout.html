@@ -1,0 +1,10 @@
+{% extends 'app_football/index.html' %}
+		
+		
+{% block log %}
+    <form action='' method='POST'>
+		{% csrf_token %}
+		{{ form }}
+		<button type='submit'>Log Out</button>
+	</form>
+{% endblock %}

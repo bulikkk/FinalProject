@@ -15,5 +15,9 @@
         {% csrf_token %}
         Zalogowany jako: {{ user }}
 
+        {% block log %}
+
+        {% endblock %}
+
     </body>
 </html>
