@@ -9,15 +9,18 @@
 
         {% block content %}
 
-
         {% endblock %}
-
-        {% csrf_token %}
-        Zalogowany jako: {{ user }}
 
         {% block log %}
 
         {% endblock %}
 
+    <p>-----------------------------------------------------------------------------------------------------------------</p>
+
+    {% if request.user.is_authenticated %}
+        <p>Zalogowany jako: {{ user }} <a href="{% url 'logout' %}"><button>Log Out</button></a></p>
+    {% else %}
+        <p>Niezalogowany <a href="{% url 'login' %}"><button>Log In</button></a></p>
+    {% endif %}
     </body>
 </html>

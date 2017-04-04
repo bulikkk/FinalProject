@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'football_manager.wsgi.application'
 DATABASES = {
     'default': {
         'HOST': '127.0.0.1',
-        'NAME': 'aa_finalproject',
+        'NAME': 'aaa_finalproject',
         'ENGINE': 'mysql.connector.django',
         'USER': 'root',
         'PASSWORD': 'coderslab',

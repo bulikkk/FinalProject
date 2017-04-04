@@ -1,0 +1,13 @@
+{% extends 'app_football/team.html' %}
+
+{% block team %}
+
+    <h3>{{ player.full_name }}</h3>
+
+    <p>Position: {{ player.get_position_display }}</p>
+
+    <p>Attack: {{ player.attack }}</p>
+
+    <p>Defence: {{ player.defence }}</p>
+
+{% endblock %}
