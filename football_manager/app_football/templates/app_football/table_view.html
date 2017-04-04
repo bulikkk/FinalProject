@@ -1,0 +1,29 @@
+{% extends 'app_football/team.html' %}
+
+{% block team %}
+
+    <h3>LEAGUE TABLE</h3>
+    <table>
+        <tr><th>Position</th><th>Team</th><th>Wins</th><th>Loses</th><th>Points</th></tr>
+        {% for team in teams %}
+            {% if team.user_id == user.id %}
+                <tr>
+                    <td>{{ position }}</td>
+                    <td><a href="{% url 'team' user_pk=user.id %}">{{ team.name }}</a></td>
+                    <td>{{ team.wins }}</td>
+                    <td>{{ team.loses }}</td>
+                    <td>{{ team.points }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>{{ position }}</td>
+                    <td>{{ team.name }}</td>
+                    <td>{{ team.wins }}</td>
+                    <td>{{ team.loses }}</td>
+                    <td>{{ team.points }}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+{% endblock %}

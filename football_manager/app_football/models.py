@@ -17,6 +17,9 @@ class User(User):
 class Team(models.Model):
     name = models.CharField(max_length=64)
     user = models.OneToOneField('User')
+    wins = models.IntegerField(default=0)
+    loses = models.IntegerField(default=0)
+    points = models.IntegerField(default=0)
     energy = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)], null=True)
 
     def __str__(self):

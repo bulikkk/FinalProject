@@ -120,16 +120,24 @@ class ActionsView(View):
         return render(request, 'app_football/actions_view.html', ctx)
 
 
+class TableView(View):
+
+    def get(self, request, user_pk):
+        teams = Team.objects.filter(user_id__gte=user_pk, user_id__lte=(int(user_pk)+15)).order_by('points')
+
+        ctx = {'teams': teams}
+        return render(request, 'app_football/table_view.html', ctx)
+
+
+
+
 class TrainingView(View):
 
     def get(self, request):
         pass
 
 
-class TableView(View):
 
-    def get(self, request):
-        pass
 
 
 class MatchView(View):
