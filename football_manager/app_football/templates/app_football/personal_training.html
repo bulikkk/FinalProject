@@ -1,0 +1,18 @@
+{% extends 'app_football/team.html' %}
+
+{% block team %}
+
+    <h3>{{ player.full_name }}</h3>
+
+    <p>Position: {{ player.get_position_display }}</p>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <p>Attack: {{ player.attack }} <input type="submit" name="train_att" value='Train Attack'></p>
+
+        <p>Defence: {{ player.defence }} <input type="submit" name="train_def" value='Train Defence'></p>
+
+    </form>
+
+{% endblock %}

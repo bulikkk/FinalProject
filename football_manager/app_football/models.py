@@ -9,21 +9,22 @@ POSITION_CHOICE = {
     4: 'ST'
 }
 
-class User(User):
-    pass
+# class User(User):
+#     super().
+#     pass
 
 
 
 class Team(models.Model):
     name = models.CharField(max_length=64)
-    user = models.OneToOneField('User')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     wins = models.IntegerField(default=0)
     loses = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
     energy = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)], null=True)
 
     def __str__(self):
-        return self.name | self.user.username
+        return '{}'.format(self.name)
 
 
 class Player(models.Model):

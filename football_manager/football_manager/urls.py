@@ -21,12 +21,15 @@ from app_football.views import (
     IndexView,
     LoginUserView,
     LogoutUserView,
+    LowEnergyView,
     MainView,
     MatchView,
+    PersonalTrainingView,
     PlayerView,
     RegisterUserView,
     TableView,
     TeamView,
+    TeamTrainingView,
     TrainingView,
 )
 
@@ -34,6 +37,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^main$', MainView.as_view(), name='main'),
     url(r'^index$', IndexView.as_view(), name='index'),
+    url(r'^low_energy$', LowEnergyView.as_view(), name='low-energy'),
     url(r'^register$', RegisterUserView.as_view(), name='register'),
     url(r'^login$', LoginUserView.as_view(), name='login'),
     url(r'^logout$', LogoutUserView.as_view(), name='logout'),
@@ -41,8 +45,11 @@ urlpatterns = [
     url(r'^actions/(?P<user_pk>(\d)+)$', ActionsView.as_view(), name='actions'),
     url(r'^team/(?P<user_pk>(\d)+)$', TeamView.as_view(), name='team'),
     url(r'^player/(?P<pk>(\d)+)$', PlayerView.as_view(), name='player'),
-    url(r'^training/(?P<user_pk>(\d)+)$', TrainingView.as_view(), name='training'),
-    url(r'^table/(?P<user_pk>(\d)+)$', TableView.as_view(), name='table'),
+    url(r'^training$', TrainingView.as_view(), name='training'),
+    url(r'^personal_training/(?P<player_pk>(\d)+)$', PersonalTrainingView.as_view(), name='personal-training'),
+    url(r'^team_training$', TeamTrainingView.as_view(), name='team-training'),
+    url(r'^table$', TableView.as_view(), name='table'),
     url(r'^match/(?P<user_pk>(\d)+)$', MatchView.as_view(), name='match')
+
 
 ]
