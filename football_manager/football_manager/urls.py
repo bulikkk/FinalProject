@@ -41,15 +41,15 @@ urlpatterns = [
     url(r'^register$', RegisterUserView.as_view(), name='register'),
     url(r'^login$', LoginUserView.as_view(), name='login'),
     url(r'^logout$', LogoutUserView.as_view(), name='logout'),
-    url(r'^create_team/(?P<user_pk>(\d)+)$', CreateTeamView.as_view(), name='create-team'),
-    url(r'^actions/(?P<user_pk>(\d)+)$', ActionsView.as_view(), name='actions'),
-    url(r'^team/(?P<user_pk>(\d)+)$', TeamView.as_view(), name='team'),
+    url(r'^create_team$', CreateTeamView.as_view(), name='create-team'),
+    url(r'^actions$', ActionsView.as_view(), name='actions'),
+    url(r'^team$', TeamView.as_view(), name='team'),
     url(r'^player/(?P<pk>(\d)+)$', PlayerView.as_view(), name='player'),
     url(r'^training$', TrainingView.as_view(), name='training'),
     url(r'^personal_training/(?P<player_pk>(\d)+)$', PersonalTrainingView.as_view(), name='personal-training'),
     url(r'^team_training$', TeamTrainingView.as_view(), name='team-training'),
     url(r'^table$', TableView.as_view(), name='table'),
-    url(r'^match/(?P<user_pk>(\d)+)$', MatchView.as_view(), name='match')
+    url(r'^match$', MatchView.as_view(), name='match')
 
 
 ]

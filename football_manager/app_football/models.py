@@ -9,15 +9,12 @@ POSITION_CHOICE = {
     4: 'ST'
 }
 
-# class User(User):
-#     super().
-#     pass
-
-
 
 class Team(models.Model):
     name = models.CharField(max_length=64)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, default='null', blank=True)
+    player_id = models.IntegerField()
+    is_user_team = models.BooleanField(default=False)
     wins = models.IntegerField(default=0)
     loses = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
@@ -41,4 +38,12 @@ class Player(models.Model):
     @property
     def full_name(self):
         return "{} {}".format(self.name, self.surname)
+
+
+class Match(models.Model):
+    home_team = models.ForeignKey(Team, related_name='home')
+    away_team = models.ForeignKey(Team, related_name='away', null=True, default=None)
+    round_no = models.IntegerField()
+    home_team_goals = models.IntegerField(null=True, default=None)
+    away_team_goals = models.IntegerField(null=True, default=None)
 

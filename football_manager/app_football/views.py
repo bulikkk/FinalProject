@@ -1,13 +1,14 @@
 from .management.commands._private import (
     create_teams,
-    create_players
+    create_players,
+    create_rounds,
 )
 from random import choice, randint
 
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login
 from django.http import HttpResponseRedirect
-from .models import Player, Team, User
+from .models import Player, Team, User, Match
 from django.views import View
 from .forms import (
     AuthForm,
@@ -47,7 +48,7 @@ class RegisterUserView(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return HttpResponseRedirect(reverse('create-team', kwargs={'user_pk': user.id}))
+            return HttpResponseRedirect(reverse('create-team'))
         else:
             return render(request, 'app_football/register_user_form.html', ctx)
 
@@ -65,7 +66,7 @@ class LoginUserView(View):
         if form.is_valid():
             user = form.cleaned_data['user']
             login(request, user)
-            return HttpResponseRedirect(reverse('actions', kwargs={'user_pk': user.id}))
+            return HttpResponseRedirect(reverse('actions'))
         else:
             return render(request, 'app_football/login.html', ctx)
 
@@ -79,34 +80,34 @@ class LogoutUserView(View):
 
 class CreateTeamView(View):
 
-    def get(self, request, user_pk):
+    def get(self, request):
         form = CreateTeamForm()
         ctx = {'form': form}
         return render(request, 'app_football/create_team.html', ctx)
 
-    def post(self, request, user_pk):
+    def post(self, request):
         form = CreateTeamForm(data=request.POST)
         ctx = {'form': form}
         if form.is_valid():
-            user = User.objects.get(pk=user_pk)
+            user = request.user
+            user_id = request.user.id
             team_name = form.cleaned_data['name']
-            Team.objects.create(name=team_name, user=user, energy=10)
+            Team.objects.create(name=team_name, user=user, player_id=user_id, energy=10, is_user_team=True)
 
-            create_teams()
-            create_players(user_pk)
-            return HttpResponseRedirect(reverse('team', kwargs={'user_pk': user.id}))
+            create_teams(user_id)
+            create_players(user)
+            create_rounds(user_id)
+            return HttpResponseRedirect(reverse('actions'))
         else:
             return render(request, 'app_football/create_team.html', ctx)
 
 
 class TeamView(View):
 
-    def get(self, request, user_pk):
-        user = User.objects.get(pk=user_pk)
-        team = Team.objects.get(user=user)
+    def get(self, request):
+        team = Team.objects.get(user=request.user)
         players = Player.objects.filter(team=team)
-        ctx = {'players': players,
-               'team': team}
+        ctx = {'players': players}
         return render(request, 'app_football/team_view.html', ctx)
 
 
@@ -120,9 +121,8 @@ class PlayerView(View):
 
 class ActionsView(View):
 
-    def get(self, request, user_pk):
-        user = User.objects.get(pk=user_pk)
-        team = Team.objects.get(user=user)
+    def get(self, request):
+        team = Team.objects.get(user=request.user)
         ctx = {'team': team}
         return render(request, 'app_football/actions_view.html', ctx)
 
@@ -131,7 +131,7 @@ class TableView(View):
 
     def get(self, request):
         user = request.user
-        teams = Team.objects.filter(user_id__gte=user.id, user_id__lte=(int(user.id)+15)).order_by('-points')
+        teams = Team.objects.filter(player_id=user.id).order_by('-points')
 
         ctx = {'teams': teams}
         return render(request, 'app_football/table_view.html', ctx)
@@ -142,8 +142,8 @@ class TableView(View):
 class TrainingView(View):
 
     def get(self, request):
-        user = request.user
-        players = Player.objects.filter(team=user.team)
+        team = Team.objects.get(user=request.user)
+        players = Player.objects.filter(team=team)
         ctx = {'players': players}
         return render(request, 'app_football/training_view.html', ctx)
 
@@ -183,13 +183,13 @@ class PersonalTrainingView(View):
 class TeamTrainingView(View):
 
     def get(self, request):
-        team = request.user.team
+        team = Team.objects.get(user=request.user, is_user_team=True)
         players = team.player_set.all()
         ctx = {'players': players}
         return render(request, 'app_football/team_training.html', ctx)
 
     def post(self, request):
-        team = request.user.team
+        team = Team.objects.get(user=request.user, is_user_team=True)
         players = team.player_set.all()
         ctx = {'players': players}
         if request.POST.get("team_train"):
@@ -209,10 +209,6 @@ class TeamTrainingView(View):
                         player.save()
                 return redirect(reverse('team-training'))
         return render(request, 'app_football/personal_training.html', ctx)
-
-
-
-
 
 
 class MatchView(View):

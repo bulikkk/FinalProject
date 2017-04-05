@@ -5,7 +5,7 @@
 	</head>
     <body>
 
-    <h1><a href="{% url 'actions' user_pk=request.user.id %}">{{ user.team }}</a></h1>
+    <h1><a href="{% url 'actions' %}">{{ user.team }}</a></h1>
     <h4>Energy: {{ user.team.energy }}</h4>
 
     {% block team %}

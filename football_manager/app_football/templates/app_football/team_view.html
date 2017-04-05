@@ -6,7 +6,8 @@
     <table>
         <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
         {% for player in players %}
-            <tr><td><a href="{% url 'player' pk=player.id %}"><button>{{ player.full_name }}</button></a></td>
+            <tr>
+                <td><a href="{% url 'player' pk=player.id %}"><button>{{ player.full_name }}</button></a></td>
                 <td>{{ player.get_position_display }}</td>
                 <td>{{ player.attack }}</td>
                 <td>{{ player.defence }}</td>

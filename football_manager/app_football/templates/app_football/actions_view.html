@@ -2,10 +2,10 @@
 
 {% block team %}
 
-<div class="team_button"><a href="{% url 'team' user_pk=user.id %}"><button>TEAM</button></a></div>
+<div class="team_button"><a href="{% url 'team' %}"><button>TEAM</button></a></div>
 <div class="training_button"><a href="{% url 'training' %}"><button>TRAINING</button></a></div>
 <div class="table_button"><a href="{% url 'table' %}"><button>LEAGUE TABLE</button></a></div>
-<div class="match_button"><a href="{% url 'match' user_pk=user.id %}"><button>MATCH DAY!</button></a></div>
+<div class="match_button"><a href="{% url 'match' %}"><button>MATCH DAY!</button></a></div>
 
 
 

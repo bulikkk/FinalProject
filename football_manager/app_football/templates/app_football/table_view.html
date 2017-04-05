@@ -9,7 +9,7 @@
             {% if team.user_id == user.id %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td><a href="{% url 'team' user_pk=user.id %}">{{ team.name }}</a></td>
+                    <td><a href="{% url 'team' %}">{{ team.name }}</a></td>
                     <td>{{ team.wins }}</td>
                     <td>{{ team.loses }}</td>
                     <td>{{ team.points }}</td>

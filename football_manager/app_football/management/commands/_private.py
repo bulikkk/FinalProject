@@ -2,8 +2,8 @@ from faker import Factory
 from random import randint
 
 from football_manager.settings import *
-from app_football.models import Player, Team, User
-
+from app_football.models import Player, Team, User, Match
+from django.contrib.auth.models import User
 
 
 def create_teams_names():
@@ -11,11 +11,9 @@ def create_teams_names():
     name = fake.last_name()
     return name + " FC"
 
-def create_teams():
-    fake = Factory.create("en_GB")
-    for i in range(15):
-        user = User.objects.create(username=(str(i) + str(randint(1, 10000)) + fake.first_name()))
-        Team.objects.create(name=create_teams_names(), user=user, energy=0)
+def create_teams(user_id):
+    for i in range(7):
+        Team.objects.create(name=create_teams_names(), user=None, player_id=user_id, energy=0)
 
 def create_name():
     fake = Factory.create("en_GB")
@@ -24,9 +22,9 @@ def create_name():
     return first_name, last_name
 
 
-def create_players(user_pk):
+def create_players(user):
     player_range = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
-    for team in Team.objects.filter(pk__gte=user_pk):
+    for team in Team.objects.filter(player_id=user.id):
         for player in player_range:
             name = create_name()
             if player <= 3:
@@ -45,6 +43,84 @@ def create_players(user_pk):
                 att = randint(50, 60)
                 deff = randint(20, 30)
                 Player.objects.create(name=name[0], surname=name[1], position=4, attack=att, defence=deff, team=team)
+
+
+def create_rounds(user_id):
+    teams = Team.objects.filter(player_id=user_id)
+
+    for team in teams:
+        home = team
+        for away in teams:
+            away = away
+            round_no = 1
+            matches = Match.objects.all()
+            index = 0
+            if home == away:
+                continue
+            elif not matches:
+                Match.objects.create(home_team=home, away_team=away, round_no=round_no)
+                continue
+            else:
+                while index < 1:
+                    for match in matches:
+                            if match.home_team == home and match.round_no == round_no:
+                                round_no += 1
+                                break
+                            elif match.away_team == home and match.round_no == round_no:
+                                round_no += 1
+                                break
+                            elif match.away_team == away and match.round_no == round_no:
+                                round_no += 1
+                                break
+                            elif match.home_team == away and match.round_no == round_no:
+                                round_no += 1
+                                break
+                            else:
+                                continue
+                    else:
+                        Match.objects.create(home_team=home, away_team=away, round_no=round_no)
+                        index += 1
+                        break
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # teams.order_by("id")
+    # rounds_no = (len(teams) - 1) * 2
+    # for i in range(rounds_no):
+    #     round_no = i
+    #     for team in teams:
+    #         matches = Match.objects.all()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
