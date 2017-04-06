@@ -20,6 +20,19 @@
                         <td>{{ match.away_team_goals }}</td>
                     {% endif %}
                 </tr>
+            {% elif match.away_team == user.team %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ match.home_team }}</td>
+                    <td><a href="{% url 'team' %}">{{ match.away_team }}</a></td>
+                    {% if match.home_team_goals == None and match.away_team_goals == None %}
+                        <td> - </td>
+                        <td> - </td>
+                    {% else %}
+                        <td>{{ match.home_team_goals }}</td>
+                        <td>{{ match.away_team_goals }}</td>
+                    {% endif %}
+                </tr>
             {% else %}
                 <tr>
                     <td>{{ forloop.counter }}</td>

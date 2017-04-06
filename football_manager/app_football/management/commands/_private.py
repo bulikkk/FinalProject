@@ -84,12 +84,13 @@ def create_rounds(user_id):
 
 
 def next_round(user):
-    matches = Match.objects.filter(home_team=user.team).filter(away_team=user.team)
-    matches = matches.order_by('round_no')
-    for match in matches:
-        if match.home_team_goals is None and match.away_team_goals is None:
-            next_round = match.round_no
-            return next_round
+    matches = ((Match.objects.filter(home_team=user.team)) | (Match.objects.filter(away_team=user.team)))
+    rounds = matches
+    for round in rounds:
+        if round.home_team_goals is None and round.away_team_goals is None:
+            next = round.round_no
+            match = round
+            return next, match
 
 
 

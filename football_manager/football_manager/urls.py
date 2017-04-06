@@ -18,6 +18,7 @@ from django.contrib import admin
 from app_football.views import (
     ActionsView,
     CreateTeamView,
+    GameView,
     IndexView,
     LoginUserView,
     LogoutUserView,
@@ -54,6 +55,7 @@ urlpatterns = [
     url(r'^schedule$', ScheduleView.as_view(), name='schedule'),
     url(r'^round/(?P<round_no>(\d)+)$', RoundView.as_view(), name='round'),
     url(r'^match$', MatchView.as_view(), name='match'),
+    url(r'^game$', GameView.as_view(), name='game'),
 
 
 ]

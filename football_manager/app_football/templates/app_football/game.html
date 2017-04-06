@@ -1,0 +1,45 @@
+{% extends 'app_football/team.html' %}
+
+{% block team %}
+
+    <h2>HOME TEAM</h2>
+
+    <h3>{{ home.name }}</h3>
+
+    <table>
+        <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
+        {% for player in home_players %}
+            <tr>
+                <td>{{ player.full_name }}</td>
+                <td>{{ player.get_position_display }}</td>
+                <td>{{ player.attack }}</td>
+                <td>{{ player.defence }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+------------------------------------------------------------------------------------------------------------------------
+
+    <h2>AWAY TEAM</h2>
+
+    <h3>{{ away.name }}</h3>
+
+    <table>
+        <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
+        {% for player in away_players %}
+            <tr>
+                <td>{{ player.full_name }}</td>
+                <td>{{ player.get_position_display }}</td>
+                <td>{{ player.attack }}</td>
+                <td>{{ player.defence }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+    <br>
+    <br>
+    <button type="submit">LET'S PLAY</button>
+
+
+{% endblock %}

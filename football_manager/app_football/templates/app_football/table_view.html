@@ -4,13 +4,14 @@
 
     <h3>LEAGUE TABLE</h3>
     <table>
-        <tr><th>Position</th><th>Team</th><th>Wins</th><th>Loses</th><th>Points</th></tr>
+        <tr><th>Position</th><th>Team</th><th>Wins</th><th>Draws</th><th>Loses</th><th>Points</th></tr>
         {% for team in teams %}
             {% if team.user_id == user.id %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td><a href="{% url 'team' %}">{{ team.name }}</a></td>
                     <td>{{ team.wins }}</td>
+                    <td>{{ team.draws }}</td>
                     <td>{{ team.loses }}</td>
                     <td>{{ team.points }}</td>
                 </tr>
@@ -19,6 +20,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ team.name }}</td>
                     <td>{{ team.wins }}</td>
+                    <td>{{ team.draws }}</td>
                     <td>{{ team.loses }}</td>
                     <td>{{ team.points }}</td>
                 </tr>

@@ -9,7 +9,7 @@ from random import choice, randint
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login
 from django.http import HttpResponseRedirect
-from .models import Player, Team, User, Match
+from .models import Player, Team, Match
 from django.views import View
 from .forms import (
     AuthForm,
@@ -236,13 +236,32 @@ class RoundView(View):
 class MatchView(View):
 
     def get(self, request):
-        next_match = next_round(request.user)
-        match = Match.objects.filter(round_no=next_match, home_team=request.user.team)\
-                             .filter(round_no=next_match, away_team=request.user.team)
-        ctx = {'match': match}
+        user = request.user
+        next_match = next_round(user)[0]
+        matches = Match.objects.filter(round_no=next_match)
+        ctx = {'matches': matches}
         return render(request, 'app_football/match.html', ctx)
 
 
+class GameView(View):
+
+    def get(self, request):
+        user = request.user
+        next_match = next_round(user)[0]
+        match = next_round(user)[1]
+        home = match.home_team
+        home_players = Player.objects.filter(team=home)
+        away = match.away_team
+        away_players = Player.objects.filter(team=away)
+        ctx = {'match': match,
+               'home': home,
+               'home_players': home_players,
+               'away': away,
+               'away_players': away_players}
+        return render(request, 'app_football/game.html', ctx)
+
+    def post(self, request):
+        pass
 
 
 

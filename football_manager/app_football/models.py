@@ -15,9 +15,9 @@ class Team(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, default='null', blank=True)
     player_id = models.IntegerField()
     is_user_team = models.BooleanField(default=False)
-    wins = models.IntegerField(default=None, null=True)
-    draws = models.IntegerField(default=None, null=True)
-    loses = models.IntegerField(default=None, null=True)
+    wins = models.IntegerField(default=0, null=True)
+    draws = models.IntegerField(default=0, null=True)
+    loses = models.IntegerField(default=0, null=True)
     points = models.IntegerField(default=0)
     energy = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)], null=True)
 
