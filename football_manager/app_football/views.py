@@ -177,7 +177,7 @@ class PersonalTrainingView(View):
                 player.save()
                 team.energy -= 2
                 team.save()
-                return redirect(reverse('personal-training', kwargs={'player_pk': player_pk}))
+                return render(request, 'app_football/personal_training.html', ctx)
         return render(request, 'app_football/personal_training.html', ctx)
 
 
@@ -208,7 +208,7 @@ class TeamTrainingView(View):
                     elif atr == 1:
                         player.defence += 2
                         player.save()
-                return redirect(reverse('team-training'))
+                return render(request, 'app_football/team_training.html', ctx)
         return render(request, 'app_football/personal_training.html', ctx)
 
 
@@ -261,7 +261,10 @@ class GameView(View):
         return render(request, 'app_football/game.html', ctx)
 
     def post(self, request):
-        pass
+        match = request.POST.get('match')
+        
+
+
 
 
 

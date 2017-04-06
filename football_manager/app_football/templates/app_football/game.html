@@ -39,7 +39,11 @@
 
     <br>
     <br>
-    <button type="submit">LET'S PLAY</button>
+    <form action="" method="POST">
+        {% csrf_token %}
+    <input type="submit" value="LET'S PLAY">
+        <input type="hidden" name="match" value="{{ match }}">
+    </form>
 
 
 {% endblock %}
