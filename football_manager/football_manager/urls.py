@@ -27,6 +27,8 @@ from app_football.views import (
     PersonalTrainingView,
     PlayerView,
     RegisterUserView,
+    RoundView,
+    ScheduleView,
     TableView,
     TeamView,
     TeamTrainingView,
@@ -49,7 +51,9 @@ urlpatterns = [
     url(r'^personal_training/(?P<player_pk>(\d)+)$', PersonalTrainingView.as_view(), name='personal-training'),
     url(r'^team_training$', TeamTrainingView.as_view(), name='team-training'),
     url(r'^table$', TableView.as_view(), name='table'),
-    url(r'^match$', MatchView.as_view(), name='match')
+    url(r'^schedule$', ScheduleView.as_view(), name='schedule'),
+    url(r'^round/(?P<round_no>(\d)+)$', RoundView.as_view(), name='round'),
+    url(r'^match$', MatchView.as_view(), name='match'),
 
 
 ]

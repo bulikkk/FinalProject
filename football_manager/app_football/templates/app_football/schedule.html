@@ -1,0 +1,12 @@
+{% extends 'app_football/team.html' %}
+
+{% block team %}
+
+    <h3>SCHEDULE</h3>
+
+    {% for round in rounds %}
+        <a href="{% url 'round' round_no=round %}"><button type="submit">ROUND {{ round }}</button></a><br><br>
+    {% endfor %}
+
+
+{% endblock %}

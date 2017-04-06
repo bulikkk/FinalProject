@@ -2,6 +2,7 @@ from .management.commands._private import (
     create_teams,
     create_players,
     create_rounds,
+    next_round,
 )
 from random import choice, randint
 
@@ -211,10 +212,37 @@ class TeamTrainingView(View):
         return render(request, 'app_football/personal_training.html', ctx)
 
 
+class ScheduleView(View):
+
+    def get(self, request):
+        teams = Team.objects.filter(player_id=request.user.id)
+        rounds_no = ((len(teams) - 1) * 2)
+        rounds = []
+        for i in range(1, rounds_no + 1):
+            rounds.append(i)
+        ctx = {'rounds': rounds}
+        return render(request, 'app_football/schedule.html', ctx)
+
+
+class RoundView(View):
+
+    def get(self, request, round_no):
+        matches = Match.objects.filter(round_no=round_no).order_by('home_team')
+        ctx = {'matches': matches,
+               'round_no': round_no}
+        return render(request, 'app_football/round.html', ctx)
+
+
 class MatchView(View):
 
     def get(self, request):
-        pass
+        next_match = next_round(request.user)
+        match = Match.objects.filter(round_no=next_match, home_team=request.user.team)\
+                             .filter(round_no=next_match, away_team=request.user.team)
+        ctx = {'match': match}
+        return render(request, 'app_football/match.html', ctx)
+
+
 
 
 
