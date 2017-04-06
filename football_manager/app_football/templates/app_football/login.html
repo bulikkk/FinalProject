@@ -1,12 +1,22 @@
 {% extends 'app_football/index.html' %}
 		
 		
-{% block log %}
-<div class="container">
+{% block content %}
+
+	<h1>Login form</h1>
+
     <form action='' method='POST'>
 		{% csrf_token %}
 		{{ form }}
 		<button class="btn" type='submit'>Log In</button>
 	</form>
-</div>
+
+<p>-----------------------------------------------------------------------------------------------------------------</p>
+
+    {% if request.user.is_authenticated %}
+        <p>Logged as: {{ user }} <a href="{% url 'logout' %}"><button class="btn">Log Out</button></a>   <a href="{% url 'register' %}"><button class="btn">Register</button></a></p>
+    {% else %}
+        <p>Logged out <a href="{% url 'login' %}"><button class="btn">Log In</button></a>   <a href="{% url 'register' %}"><button class="btn">Register</button></a></p>
+    {% endif %}
+
 {% endblock %}

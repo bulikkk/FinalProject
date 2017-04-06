@@ -1,7 +1,10 @@
 {% extends 'app_football/index.html' %}
 
-
 {% block content %}
+
+	<h1>Team Creation!</h1>
+	<p>Name your team whatever you want!</p>
+	<h3>WARNING! After clicking on 'Create button' it will take a while to create your team players!</h3>
     <form action='' method='POST'>
 		{% csrf_token %}
 		{{ form }}

@@ -25,8 +25,8 @@ class RegisterUserForm(forms.ModelForm):
 
 
 class AuthForm(forms.Form):
-    login = forms.CharField(label='Login')
-    password = forms.CharField(label='Hasło', widget=forms.PasswordInput)
+    login = forms.CharField(label='Username')
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
     def clean(self):
         """
@@ -39,7 +39,7 @@ class AuthForm(forms.Form):
         user = authenticate(username=login, password=password)
 
         if user is None:
-            raise forms.ValidationError('Błędny login lub hasło')
+            raise forms.ValidationError('Wrong username or password')
 
         cleaned_data['user'] = user
         return cleaned_data

@@ -1,10 +1,58 @@
-{% extends 'app_football/team.html' %}
+{% load static %}
 
-{% block team %}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Football Manager</title>
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style>
+            body { "{% static 'norris.png' %}"
+                background-repeat:no-repeat;
+                background-size:100%; }
+            h1, h2, h3, h4, p {color: white}
+            .active>a {color: #67FF2E}
+            .info {color: #67FF2E; margin: 10px; padding-top: 15px; padding-bottom: 15px; line-height: 20px; position: relative;
+                display: block;}
+            .nav>li>a {margin: 10px;}
+            .navbar-brand {padding: 25px; color: #67FF2E}
+            .nav>li>a:hover{background: none;}
+            .active>a:hover{color: white}
+            .navbar-brand:hover{color: white}
+            th, td{text-align: center; color: white}
+            .team{}
+        </style>
+    </head>
+    <body style="background-image: url({% static 'Background.jpg' %});">
+    <div class="navbar-header" style="background-color: #333333">
+
+        <a class="navbar-brand" style="height: 60px" href="{% url 'actions' %}">{{ user.team }}</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse" style="background-color: #333333">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'team' %}">TEAM</a></li>
+            <li class="active"><a href="{% url 'table' %}">LEAGUE TABLE</a></li>
+            <li class="active"><a href="{% url 'schedule' %}">SCHEDULE</a></li>
+            <li class="active"><a href="{% url 'training' %}">TRAINING</a></li>
+            <li class="active"><a href="{% url 'match' %}">MATCH DAY!</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="info">Energy: {{ user.energy }}</li>
+            <li class="info">Logged as: {{ user }}</li>
+            <li class="active"><a href="{% url 'logout' %}">Log Out</a></p></li>
+        </ul>
+    </div>
+
+    {% block team %}
 
 
 
+    {% endblock %}
 
-
-
-{% endblock %}
+    </body>
+</html>
