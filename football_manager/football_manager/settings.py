@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'app_football.User'
+
+CRONJOBS = [
+    ('*/1 * * * *', 'app_football.cron.scheduled_energy_regeneration')
+]
+
 
 # Application definition
 
@@ -38,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app_football',
+    'django_crontab',
+
 ]
 
 MIDDLEWARE = [

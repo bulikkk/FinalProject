@@ -49,8 +49,10 @@
             {% endif %}
         {% endfor %}
     </table>
-
-    <a href="{% url 'game' %}"><button type="submit">LET'S PLAY</button></a>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="submit" name="play" value="LET'S PLAY">
+    </form>
 
 
 {% endblock %}

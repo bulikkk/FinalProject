@@ -13,7 +13,7 @@ def create_teams_names():
 
 def create_teams(user_id):
     for i in range(7):
-        Team.objects.create(name=create_teams_names(), user=None, player_id=user_id, energy=0)
+        Team.objects.create(name=create_teams_names(), user=None, player_id=user_id)
 
 def create_name():
     fake = Factory.create("en_GB")

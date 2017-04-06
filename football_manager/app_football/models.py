@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import AbstractUser
 
 POSITION_CHOICE = {
     1: 'GK',
@@ -10,16 +11,21 @@ POSITION_CHOICE = {
 }
 
 
+class User(AbstractUser):
+    energy = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)], default=10)
+
+
 class Team(models.Model):
     name = models.CharField(max_length=64)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, default='null', blank=True)
     player_id = models.IntegerField()
     is_user_team = models.BooleanField(default=False)
+    played = models.IntegerField(default=0, null=True)
     wins = models.IntegerField(default=0, null=True)
     draws = models.IntegerField(default=0, null=True)
     loses = models.IntegerField(default=0, null=True)
     points = models.IntegerField(default=0)
-    energy = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)], null=True)
+    # energy = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)], null=True)
 
     def __str__(self):
         return '{}'.format(self.name)

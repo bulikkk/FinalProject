@@ -94,7 +94,7 @@ class CreateTeamView(View):
             user = request.user
             user_id = request.user.id
             team_name = form.cleaned_data['name']
-            Team.objects.create(name=team_name, user=user, player_id=user_id, energy=10, is_user_team=True)
+            Team.objects.create(name=team_name, user=user, player_id=user_id, is_user_team=True)
 
             create_teams(user_id)
             create_players(user)
@@ -135,6 +135,7 @@ class TableView(View):
         user = request.user
         teams = Team.objects.filter(player_id=user.id).order_by('-points')
 
+
         ctx = {'teams': teams}
         return render(request, 'app_football/table_view.html', ctx)
 
@@ -160,24 +161,25 @@ class PersonalTrainingView(View):
     def post(self, request, player_pk):
         player = Player.objects.get(pk=player_pk)
         team = player.team
+        user = request.user
         ctx = {'player': player}
         if request.POST.get("train_att"):
-            if team.energy < 2:
+            if user.energy < 2:
                 return redirect(reverse('low-energy'))
             else:
                 player.attack += 2
                 player.save()
-                team.energy -= 2
-                team.save()
+                user.energy -= 2
+                user.save()
                 return redirect(reverse('personal-training', kwargs={'player_pk': player_pk}))
         elif request.POST.get("train_def"):
-            if team.energy < 2:
+            if user.energy < 2:
                 return redirect(reverse('low-energy'))
             else:
                 player.defence += 2
                 player.save()
-                team.energy -= 2
-                team.save()
+                user.energy -= 2
+                user.save()
                 return render(request, 'app_football/personal_training.html', ctx)
         return render(request, 'app_football/personal_training.html', ctx)
 
@@ -193,13 +195,14 @@ class TeamTrainingView(View):
     def post(self, request):
         team = Team.objects.get(user=request.user, is_user_team=True)
         players = team.player_set.all()
+        user = request.user
         ctx = {'players': players}
         if request.POST.get("team_train"):
-            if team.energy < 4:
+            if user.energy < 4:
                 return redirect(reverse('low-energy'))
             else:
-                team.energy -= 4
-                team.save()
+                user.energy -= 4
+                user.save()
                 for i in range(0, 3):
                     player = choice(players)
                     atr = randint(0, 1)
@@ -243,6 +246,19 @@ class MatchView(View):
         ctx = {'matches': matches}
         return render(request, 'app_football/match.html', ctx)
 
+    def post(self, request):
+        user = request.user
+        team = Team.objects.get(user=user)
+        next_match = next_round(user)[0]
+        matches = Match.objects.filter(round_no=next_match)
+        ctx = {'matches': matches}
+        if request.POST.get("play"):
+            if user.energy < 6:
+                return redirect(reverse('low-energy'))
+            else:
+                return redirect(reverse('game'))
+        return render(request, 'app_football/match.html', ctx)
+
 
 class GameView(View):
 
@@ -262,34 +278,45 @@ class GameView(View):
 
     def post(self, request):
         user = request.user
-        team = Team.objects.get(user=user)
+        user.energy -= 6
+        user.save()
+
+
+
         round_no = next_round(user)[0]
         match = next_round(user)[1]
-        result = match_result(match)
-        match.home_team_goals = result[0]
-        match.away_team_goals = result[1]
-        match.save()
-        team.energy -= 6
-        team.save()
-        if result[0] > result[1]:
-            match.home_team.wins += 1
-            match.home_team.points += 3
-            match.away_team.loses += 1
-            match.home_team.save()
-            match.away_team.save()
-        elif result[0] < result[1]:
-            match.home_team.loses += 1
-            match.away_team.points += 3
-            match.away_team.wins += 1
-            match.home_team.save()
-            match.away_team.save()
-        elif result[0] == result[1]:
-            match.home_team.draws += 1
-            match.home_team.points += 1
-            match.away_team.points += 1
-            match.away_team.draws += 1
-            match.home_team.save()
-            match.away_team.save()
+        matches = Match.objects.filter(round_no=round_no)
+        for match in matches:
+            result = match_result(match)
+            match.home_team_goals = result[0]
+            match.away_team_goals = result[1]
+            match.save()
+
+            if result[0] > result[1]:
+                match.home_team.wins += 1
+                match.home_team.points += 3
+                match.home_team.played += 1
+                match.away_team.played += 1
+                match.away_team.loses += 1
+                match.home_team.save()
+                match.away_team.save()
+            elif result[0] < result[1]:
+                match.home_team.loses += 1
+                match.home_team.played += 1
+                match.away_team.played += 1
+                match.away_team.points += 3
+                match.away_team.wins += 1
+                match.home_team.save()
+                match.away_team.save()
+            elif result[0] == result[1]:
+                match.home_team.draws += 1
+                match.home_team.points += 1
+                match.home_team.played += 1
+                match.away_team.played += 1
+                match.away_team.points += 1
+                match.away_team.draws += 1
+                match.home_team.save()
+                match.away_team.save()
         return redirect(reverse('round', kwargs={'round_no': round_no}))
 
 
