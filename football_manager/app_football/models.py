@@ -25,7 +25,6 @@ class Team(models.Model):
     draws = models.IntegerField(default=0, null=True)
     loses = models.IntegerField(default=0, null=True)
     points = models.IntegerField(default=0)
-    # energy = models.IntegerField(validators=[MaxValueValidator(10), MinValueValidator(0)], null=True)
 
     def __str__(self):
         return '{}'.format(self.name)

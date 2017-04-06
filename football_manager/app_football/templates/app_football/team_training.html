@@ -1,10 +1,13 @@
 {% extends 'app_football/team.html' %}
 
 {% block team %}
-<h1>Team Training Center</h1>
-
-    <table>
+<div class="container">
+    <h2 class="sub-header">Team Training Center</h2>
+    <table class="table">
+        <thead>
         <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
+        </thead>
+        <tbody>
         {% for player in players %}
             <tr>
                 <td>{{ player.full_name }}</td>
@@ -13,10 +16,11 @@
                 <td>{{ player.defence }}</td>
             </tr>
         {% endfor %}
+        </tbody>
     </table>
-<br>
+</div>
 <form action="" method="POST">
     {% csrf_token %}
-    <input type="submit" name="team_train" value="TRAIN">
+    <input style="margin-left: 1280px" class="btn" type="submit" name="team_train" value="TRAIN">
 </form>
 {% endblock %}

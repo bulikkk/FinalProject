@@ -2,17 +2,24 @@
 
 {% block team %}
 
-    <h3>PLAYERS</h3>
-    <table>
-        <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
-        {% for player in players %}
-            <tr>
-                <td><a href="{% url 'player' pk=player.id %}"><button>{{ player.full_name }}</button></a></td>
-                <td>{{ player.get_position_display }}</td>
-                <td>{{ player.attack }}</td>
-                <td>{{ player.defence }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+
+    <div class="container">
+        <h2 class="sub-header">PLAYERS</h2>
+        <table class="table">
+            <thead>
+                <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
+            </thead>
+            <tbody>
+            {% for player in players %}
+                <tr>
+                    <td><a href="{% url 'player' pk=player.id %}"><button>{{ player.full_name }}</button></a></td>
+                    <td>{{ player.get_position_display }}</td>
+                    <td>{{ player.attack }}</td>
+                    <td>{{ player.defence }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}

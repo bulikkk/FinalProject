@@ -1,11 +1,14 @@
 {% extends 'app_football/team.html' %}
 
 {% block team %}
+<div class="container">
+    <h2 class="sub-header">Round {{ round_no }}</h2>
 
-    <h3>Round {{ round_no }}</h3>
-
-    <table>
+    <table class="table">
+        <thead>
         <tr><th>No</th><th>Home Team</th><th>Away Team</th><th>Home team goals</th><th>Away team goals</th></tr>
+        </thead>
+        <tbody>
         {% for match in matches %}
             {% if match.home_team == user.team %}
                 <tr>
@@ -48,10 +51,12 @@
                 </tr>
             {% endif %}
         {% endfor %}
+        </tbody>
     </table>
+</div>
     <form action="" method="POST">
         {% csrf_token %}
-        <input type="submit" name="play" value="LET'S PLAY">
+        <input class="btn" style="margin-left: 1280px" type="submit" name="play" value="LET'S PLAY">
     </form>
 
 

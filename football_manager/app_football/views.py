@@ -126,7 +126,7 @@ class ActionsView(View):
     def get(self, request):
         team = Team.objects.get(user=request.user)
         ctx = {'team': team}
-        return render(request, 'app_football/actions_view.html', ctx)
+        return render(request, 'app_football/team.html', ctx)
 
 
 class TableView(View):

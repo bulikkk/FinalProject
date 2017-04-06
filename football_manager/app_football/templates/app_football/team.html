@@ -1,23 +1,48 @@
+{% load static %}
+
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-	</head>
+    <head>
+        <meta charset="utf-8">
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
     <body>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{% url 'actions' %}">{{ user.team }}</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'team' %}">TEAM</a></li>
+            <li class="active"><a href="{% url 'table' %}">LEAGUE TABLE</a></li>
+            <li class="active"><a href="{% url 'schedule' %}">SCHEDULE</a></li>
+            <li class="active"><a href="{% url 'training' %}">TRAINING</a></li>
+            <li class="active"><a href="{% url 'match' %}">MATCH DAY!</a></li>
+        </ul>
 
-    <h1><a href="{% url 'actions' %}">{{ user.team }}</a></h1>
-    <h4>Energy: {{ user.energy }}</h4>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="active"><a>Energy: {{ user.energy }}</a></li>
+            <li><a>Logged as: {{ user }}</a></li>
+            <li class="active"><a href="{% url 'logout' %}">Log Out</a></p></li>
+        </ul>
+    </div>
 
     {% block team %}
 
 
 
     {% endblock %}
-
-
-    <p>-----------------------------------------------------------------------------------------------------------------</p>
-
-    <p>Logged as: {{ user }} <a href="{% url 'logout' %}"><button>Log Out</button></a></p>
 
     </body>
 </html>

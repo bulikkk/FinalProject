@@ -2,11 +2,16 @@
 
 {% block team %}
 
-    <h3>SCHEDULE</h3>
-
+<div class="container">
+  <h2>SCHEDULE</h2>
     {% for round in rounds %}
-        <a href="{% url 'round' round_no=round %}"><button type="submit">ROUND {{ round }}</button></a><br><br>
+    <a href="{% url 'round' round_no=round %}"><button class="btn" type="submit">ROUND {{ round }}</button></a><br><br>
     {% endfor %}
+
+</div>
+
+
+
 
 
 {% endblock %}

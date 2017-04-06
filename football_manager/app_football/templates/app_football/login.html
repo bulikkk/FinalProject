@@ -2,9 +2,11 @@
 		
 		
 {% block log %}
+<div class="container">
     <form action='' method='POST'>
 		{% csrf_token %}
 		{{ form }}
-		<button type='submit'>Log In</button>
-	</form>       
+		<button class="btn" type='submit'>Log In</button>
+	</form>
+</div>
 {% endblock %}
