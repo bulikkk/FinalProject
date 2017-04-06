@@ -150,9 +150,11 @@ def match_result(match):
         team_away_goals += team_home_goals
     elif result > (home_win + draw):
         team_away_goals += choice(range(1, 10))
-        team_home_goals += choice(range(0, team_home_goals))
+        team_home_goals += choice(range(0, team_away_goals))
 
-    return team_home_goals, team_away_goals
+    match_result = [team_home_goals, team_away_goals]
+
+    return match_result
 
 
 

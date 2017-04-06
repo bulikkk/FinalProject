@@ -2,6 +2,7 @@ from .management.commands._private import (
     create_teams,
     create_players,
     create_rounds,
+    match_result,
     next_round,
 )
 from random import choice, randint
@@ -247,7 +248,6 @@ class GameView(View):
 
     def get(self, request):
         user = request.user
-        next_match = next_round(user)[0]
         match = next_round(user)[1]
         home = match.home_team
         home_players = Player.objects.filter(team=home)
@@ -261,8 +261,36 @@ class GameView(View):
         return render(request, 'app_football/game.html', ctx)
 
     def post(self, request):
-        match = request.POST.get('match')
-        
+        user = request.user
+        team = Team.objects.get(user=user)
+        round_no = next_round(user)[0]
+        match = next_round(user)[1]
+        result = match_result(match)
+        match.home_team_goals = result[0]
+        match.away_team_goals = result[1]
+        match.save()
+        team.energy -= 6
+        team.save()
+        if result[0] > result[1]:
+            match.home_team.wins += 1
+            match.home_team.points += 3
+            match.away_team.loses += 1
+            match.home_team.save()
+            match.away_team.save()
+        elif result[0] < result[1]:
+            match.home_team.loses += 1
+            match.away_team.points += 3
+            match.away_team.wins += 1
+            match.home_team.save()
+            match.away_team.save()
+        elif result[0] == result[1]:
+            match.home_team.draws += 1
+            match.home_team.points += 1
+            match.away_team.points += 1
+            match.away_team.draws += 1
+            match.home_team.save()
+            match.away_team.save()
+        return redirect(reverse('round', kwargs={'round_no': round_no}))
 
 
 
