@@ -133,7 +133,7 @@ class TableView(View):
 
     def get(self, request):
         user = request.user
-        teams = Team.objects.filter(player_id=user.id).order_by('-points')
+        teams = Team.objects.filter(player_id=user.id).order_by('-points', '-goals_sum')
 
 
         ctx = {'teams': teams}
@@ -295,6 +295,8 @@ class GameView(View):
             match.home_team_goals = result[0]
             match.away_team_goals = result[1]
             match.save()
+            match.home_team.goals_sum += (match.home_team_goals - match.away_team_goals)
+            match.away_team.goals_sum += (match.away_team_goals - match.home_team_goals)
 
             if result[0] > result[1]:
                 match.home_team.wins += 1

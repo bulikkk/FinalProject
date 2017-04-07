@@ -24,6 +24,7 @@ class Team(models.Model):
     wins = models.IntegerField(default=0, null=True)
     draws = models.IntegerField(default=0, null=True)
     loses = models.IntegerField(default=0, null=True)
+    goals_sum = models.IntegerField(default=0, null=True)
     points = models.IntegerField(default=0)
 
     def __str__(self):
