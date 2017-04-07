@@ -63,20 +63,20 @@ def create_rounds(user_id):
             else:
                 while index < 1:
                     for match in matches:
-                            if match.home_team == home and match.round_no == round_no:
-                                round_no += 1
-                                break
-                            elif match.away_team == home and match.round_no == round_no:
-                                round_no += 1
-                                break
-                            elif match.away_team == away and match.round_no == round_no:
-                                round_no += 1
-                                break
-                            elif match.home_team == away and match.round_no == round_no:
-                                round_no += 1
-                                break
-                            else:
-                                continue
+                        if match.home_team == home and match.round_no == round_no:
+                            round_no += 1
+                            break
+                        elif match.away_team == home and match.round_no == round_no:
+                            round_no += 1
+                            break
+                        elif match.away_team == away and match.round_no == round_no:
+                            round_no += 1
+                            break
+                        elif match.home_team == away and match.round_no == round_no:
+                            round_no += 1
+                            break
+                        else:
+                            continue
                     else:
                         Match.objects.create(player_id=user_id, home_team=home, away_team=away, round_no=round_no)
                         index += 1
@@ -84,8 +84,7 @@ def create_rounds(user_id):
 
 
 def next_round(user):
-    matches = ((Match.objects.filter(home_team=user.team)) | (Match.objects.filter(away_team=user.team)))
-    rounds = matches
+    rounds = ((Match.objects.filter(home_team=user.team)) | (Match.objects.filter(away_team=user.team)))
     for round in rounds:
         if round.home_team_goals is None and round.away_team_goals is None:
             next = round.round_no

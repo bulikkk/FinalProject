@@ -5,45 +5,51 @@
         {% csrf_token %}
     <input class="btn" style="margin-left: 1280px" type="submit" value="LET'S PLAY">
     </form>
-<div class="container">
-    <h2 class="sub-header">HOME TEAM</h2>
-    <h3 class="sub-header">{{ home.name }}</h3>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="container">
+            <h2 class="sub-header">HOME TEAM</h2>
+            <h3 class="sub-header">{{ home.name }}</h3>
 
-    <table class="table">
-        <thead>
-        <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
-        </thead>
-        <tbody>
-        {% for player in home_players %}
-            <tr>
-                <td>{{ player.full_name }}</td>
-                <td>{{ player.get_position_display }}</td>
-                <td>{{ player.attack }}</td>
-                <td>{{ player.defence }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-<div class="container">
-    <h2 class="sub-header">AWAY TEAM</h2>
+            <table class="table">
+                <thead>
+                <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
+                </thead>
+                <tbody>
+                {% for player in home_players %}
+                    <tr>
+                        <td>{{ player.full_name }}</td>
+                        <td>{{ player.get_position_display }}</td>
+                        <td>{{ player.attack }}</td>
+                        <td>{{ player.defence }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="container">
+            <h2 class="sub-header">AWAY TEAM</h2>
 
-    <h3 class="sub-header">{{ away.name }}</h3>
+            <h3 class="sub-header">{{ away.name }}</h3>
 
-    <table class="table">
-        <thead>
-        <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
-        </thead>
-        <tbody
-        {% for player in away_players %}
-            <tr>
-                <td>{{ player.full_name }}</td>
-                <td>{{ player.get_position_display }}</td>
-                <td>{{ player.attack }}</td>
-                <td>{{ player.defence }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <table class="table">
+                <thead>
+                <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
+                </thead>
+                <tbody
+                {% for player in away_players %}
+                    <tr>
+                        <td>{{ player.full_name }}</td>
+                        <td>{{ player.get_position_display }}</td>
+                        <td>{{ player.attack }}</td>
+                        <td>{{ player.defence }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

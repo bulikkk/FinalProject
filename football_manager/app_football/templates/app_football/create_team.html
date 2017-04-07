@@ -2,12 +2,18 @@
 
 {% block content %}
 
+{% load static %}
+
 	<h1>Team Creation!</h1>
 	<p>Name your team whatever you want!</p>
 	<h3>WARNING! After clicking on 'Create button' it will take a while to create your team players!</h3>
-    <form action='' method='POST'>
+    <form class="team-form" action='' method='POST'>
 		{% csrf_token %}
 		{{ form }}
-		<button type='submit'>Create</button>
+		<button class="btn submit" type='submit'>Create</button>
 	</form>
+
+
+	<img class="loader hidden" src="{% static 'launcher-loader.gif' %}" style="position: fixed; left: 45%; top: 40%; height: 150px; width: 150px;">
+
 {% endblock %}

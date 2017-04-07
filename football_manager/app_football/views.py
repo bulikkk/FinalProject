@@ -142,9 +142,8 @@ class EditPlayerView(LoginRequiredMixin, View):
             player.name = form.cleaned_data['name']
             player.surname = form.cleaned_data['surname']
             player.save()
-            return redirect(reverse('player', kwargs={'pk': player.id}))
+            return redirect(reverse('team'))
         return render(request, 'app_football/player_edit.html', ctx)
-
 
 
 class ActionsView(LoginRequiredMixin, View):
@@ -161,11 +160,8 @@ class TableView(LoginRequiredMixin, View):
         user = request.user
         teams = Team.objects.filter(player_id=user.id).order_by('-points', '-goals_sum')
 
-
         ctx = {'teams': teams}
         return render(request, 'app_football/table_view.html', ctx)
-
-
 
 
 class TrainingView(LoginRequiredMixin, View):
