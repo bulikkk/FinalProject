@@ -18,6 +18,7 @@ from django.contrib import admin
 from app_football.views import (
     ActionsView,
     CreateTeamView,
+    EditPlayerView,
     GameView,
     IndexView,
     LoginUserView,
@@ -48,6 +49,7 @@ urlpatterns = [
     url(r'^actions$', ActionsView.as_view(), name='actions'),
     url(r'^team$', TeamView.as_view(), name='team'),
     url(r'^player/(?P<pk>(\d)+)$', PlayerView.as_view(), name='player'),
+    url(r'^edit_player/(?P<pk>(\d)+)$', EditPlayerView.as_view(), name='edit-player'),
     url(r'^training$', TrainingView.as_view(), name='training'),
     url(r'^personal_training/(?P<player_pk>(\d)+)$', PersonalTrainingView.as_view(), name='personal-training'),
     url(r'^team_training$', TeamTrainingView.as_view(), name='team-training'),

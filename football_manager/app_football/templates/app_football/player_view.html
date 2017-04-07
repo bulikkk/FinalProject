@@ -2,7 +2,7 @@
 
 {% block team %}
 <div class="container" style="position: absolute; top: 30%; margin-top: -100px; margin-left: 30%">
-    <h3>{{ player.full_name }}</h3>
+    <h3>{{ player.full_name }} <a href="{% url 'edit-player' pk=player.id %}"><button class="btn">EDIT</button></a></h3>
 
     <p>Position: {{ player.get_position_display }}</p>
 

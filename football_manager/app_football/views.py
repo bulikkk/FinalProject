@@ -5,6 +5,8 @@ from .management.commands._private import (
     match_result,
     next_round,
 )
+
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from random import choice, randint
 
 from django.shortcuts import render, redirect, reverse
@@ -15,6 +17,7 @@ from django.views import View
 from .forms import (
     AuthForm,
     CreateTeamForm,
+    EditPlayerForm,
     RegisterUserForm
 )
 from django.contrib.auth import get_user_model, authenticate, login, logout
@@ -32,7 +35,7 @@ class MainView(View):
         return render(request, 'app_football/main.html', {})
 
 
-class LowEnergyView(View):
+class LowEnergyView(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, 'app_football/low_energy.html', {})
@@ -80,7 +83,7 @@ class LogoutUserView(View):
         return HttpResponseRedirect(reverse('main'))
 
 
-class CreateTeamView(View):
+class CreateTeamView(LoginRequiredMixin, View):
 
     def get(self, request):
         form = CreateTeamForm()
@@ -104,7 +107,7 @@ class CreateTeamView(View):
             return render(request, 'app_football/create_team.html', ctx)
 
 
-class TeamView(View):
+class TeamView(LoginRequiredMixin, View):
 
     def get(self, request):
         team = Team.objects.get(user=request.user)
@@ -113,7 +116,7 @@ class TeamView(View):
         return render(request, 'app_football/team_view.html', ctx)
 
 
-class PlayerView(View):
+class PlayerView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
         player = Player.objects.get(pk=pk)
@@ -121,7 +124,30 @@ class PlayerView(View):
         return render(request, 'app_football/player_view.html', ctx)
 
 
-class ActionsView(View):
+class EditPlayerView(LoginRequiredMixin, View):
+
+    def get(self, request, pk):
+        player = Player.objects.get(pk=pk)
+        form = EditPlayerForm(instance=player)
+        ctx = {'player': player,
+               'form': form}
+        return render(request, 'app_football/player_edit.html', ctx)
+
+    def post(self, request, pk):
+        player = Player.objects.get(pk=pk)
+        form = EditPlayerForm(instance=player, data=request.POST)
+        ctx = {'player': player,
+               'form': form}
+        if form.is_valid():
+            player.name = form.cleaned_data['name']
+            player.surname = form.cleaned_data['surname']
+            player.save()
+            return redirect(reverse('player', kwargs={'pk': player.id}))
+        return render(request, 'app_football/player_edit.html', ctx)
+
+
+
+class ActionsView(LoginRequiredMixin, View):
 
     def get(self, request):
         team = Team.objects.get(user=request.user)
@@ -129,7 +155,7 @@ class ActionsView(View):
         return render(request, 'app_football/actions_view.html', ctx)
 
 
-class TableView(View):
+class TableView(LoginRequiredMixin, View):
 
     def get(self, request):
         user = request.user
@@ -142,7 +168,7 @@ class TableView(View):
 
 
 
-class TrainingView(View):
+class TrainingView(LoginRequiredMixin, View):
 
     def get(self, request):
         team = Team.objects.get(user=request.user)
@@ -151,7 +177,7 @@ class TrainingView(View):
         return render(request, 'app_football/training_view.html', ctx)
 
 
-class PersonalTrainingView(View):
+class PersonalTrainingView(LoginRequiredMixin, View):
 
     def get(self, request, player_pk):
         player = Player.objects.get(pk=player_pk)
@@ -184,7 +210,7 @@ class PersonalTrainingView(View):
         return render(request, 'app_football/personal_training.html', ctx)
 
 
-class TeamTrainingView(View):
+class TeamTrainingView(LoginRequiredMixin, View):
 
     def get(self, request):
         team = Team.objects.get(user=request.user, is_user_team=True)
@@ -216,7 +242,7 @@ class TeamTrainingView(View):
         return render(request, 'app_football/personal_training.html', ctx)
 
 
-class ScheduleView(View):
+class ScheduleView(LoginRequiredMixin, View):
 
     def get(self, request):
         user = request.user
@@ -231,7 +257,7 @@ class ScheduleView(View):
         return render(request, 'app_football/schedule.html', ctx)
 
 
-class RoundView(View):
+class RoundView(LoginRequiredMixin, View):
 
     def get(self, request, round_no):
         matches = Match.objects.filter(round_no=round_no).order_by('home_team')
@@ -240,7 +266,7 @@ class RoundView(View):
         return render(request, 'app_football/round.html', ctx)
 
 
-class MatchView(View):
+class MatchView(LoginRequiredMixin, View):
 
     def get(self, request):
         user = request.user
@@ -264,7 +290,7 @@ class MatchView(View):
         return render(request, 'app_football/match.html', ctx)
 
 
-class GameView(View):
+class GameView(LoginRequiredMixin, View):
 
     def get(self, request):
         user = request.user

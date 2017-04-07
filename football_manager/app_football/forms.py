@@ -1,8 +1,9 @@
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 
-from .models import User
+from .models import User, Player
 
 
 
@@ -47,6 +48,12 @@ class AuthForm(forms.Form):
 
 class CreateTeamForm(forms.Form):
     name = forms.CharField(label='Team Name', max_length=64)
+
+
+class EditPlayerForm(ModelForm):
+    class Meta:
+        model = Player
+        fields = ['name', 'surname']
 
 
 
