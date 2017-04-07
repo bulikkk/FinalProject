@@ -53,12 +53,12 @@ def create_rounds(user_id):
         for away in teams:
             away = away
             round_no = 1
-            matches = Match.objects.all()
+            matches = Match.objects.filter(player_id=user_id)
             index = 0
             if home == away:
                 continue
             elif not matches:
-                Match.objects.create(home_team=home, away_team=away, round_no=round_no)
+                Match.objects.create(player_id=user_id, home_team=home, away_team=away, round_no=round_no)
                 continue
             else:
                 while index < 1:
@@ -78,7 +78,7 @@ def create_rounds(user_id):
                             else:
                                 continue
                     else:
-                        Match.objects.create(home_team=home, away_team=away, round_no=round_no)
+                        Match.objects.create(player_id=user_id, home_team=home, away_team=away, round_no=round_no)
                         index += 1
                         break
 

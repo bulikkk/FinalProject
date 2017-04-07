@@ -94,8 +94,8 @@ class CreateTeamView(LoginRequiredMixin, View):
         form = CreateTeamForm(data=request.POST)
         ctx = {'form': form}
         if form.is_valid():
-            user = request.user
-            user_id = request.user.id
+            user = self.request.user
+            user_id = user.id
             team_name = form.cleaned_data['name']
             Team.objects.create(name=team_name, user=user, player_id=user_id, is_user_team=True)
 
@@ -245,8 +245,8 @@ class TeamTrainingView(LoginRequiredMixin, View):
 class ScheduleView(LoginRequiredMixin, View):
 
     def get(self, request):
-        user = request.user
-        teams = Team.objects.filter(player_id=request.user.id)
+        user = self.request.user
+        teams = Team.objects.filter(player_id=user.id)
         rounds_no = ((len(teams) - 1) * 2)
         rounds = []
         for i in range(1, rounds_no + 1):
@@ -260,7 +260,8 @@ class ScheduleView(LoginRequiredMixin, View):
 class RoundView(LoginRequiredMixin, View):
 
     def get(self, request, round_no):
-        matches = Match.objects.filter(round_no=round_no).order_by('home_team')
+        user = request.user
+        matches = Match.objects.raw('SELECT * FROM app_football_match WHERE round_no={} AND player_id={}'.format(round_no, user.id))
         ctx = {'matches': matches,
                'round_no': round_no}
         return render(request, 'app_football/round.html', ctx)
@@ -271,7 +272,8 @@ class MatchView(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
         next_match = next_round(user)[0]
-        matches = Match.objects.filter(round_no=next_match)
+        matches = Match.objects.raw(
+            'SELECT * FROM app_football_match WHERE round_no={} AND player_id={}'.format(next_match, user.id))
         ctx = {'matches': matches,
                'round_no': next_match}
         return render(request, 'app_football/match.html', ctx)
@@ -280,8 +282,10 @@ class MatchView(LoginRequiredMixin, View):
         user = request.user
         team = Team.objects.get(user=user)
         next_match = next_round(user)[0]
-        matches = Match.objects.filter(round_no=next_match)
-        ctx = {'matches': matches}
+        matches = Match.objects.raw(
+            'SELECT * FROM app_football_match WHERE round_no={} AND player_id={}'.format(next_match, user.id))
+        ctx = {'matches': matches,
+               'round_no': next_match}
         if request.POST.get("play"):
             if user.energy < 6:
                 return redirect(reverse('low-energy'))

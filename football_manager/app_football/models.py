@@ -48,6 +48,7 @@ class Player(models.Model):
 
 
 class Match(models.Model):
+    player_id = models.IntegerField(default=None)
     home_team = models.ForeignKey(Team, related_name='home')
     away_team = models.ForeignKey(Team, related_name='away', null=True, default=None)
     round_no = models.IntegerField()
