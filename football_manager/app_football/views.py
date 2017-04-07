@@ -219,12 +219,15 @@ class TeamTrainingView(View):
 class ScheduleView(View):
 
     def get(self, request):
+        user = request.user
         teams = Team.objects.filter(player_id=request.user.id)
         rounds_no = ((len(teams) - 1) * 2)
         rounds = []
         for i in range(1, rounds_no + 1):
             rounds.append(i)
-        ctx = {'rounds': rounds}
+        next = next_round(user)[0]
+        ctx = {'rounds': rounds,
+               'next': next}
         return render(request, 'app_football/schedule.html', ctx)
 
 
@@ -243,7 +246,8 @@ class MatchView(View):
         user = request.user
         next_match = next_round(user)[0]
         matches = Match.objects.filter(round_no=next_match)
-        ctx = {'matches': matches}
+        ctx = {'matches': matches,
+               'round_no': next_match}
         return render(request, 'app_football/match.html', ctx)
 
     def post(self, request):

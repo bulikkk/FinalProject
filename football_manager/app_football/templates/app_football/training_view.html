@@ -2,7 +2,7 @@
 
 {% block team %}
 <div class="container">
-    <h2 class="sub-header">Training Center</h2>
+    <h2 class="sub-header">TRAINING CENTER</h2>
     <p>Personal training (energy cost 2) -  gives your player 2 points of attack or defence</p>
     <p>Team training (energy cost 4) - 3 random players gets randomly 2 points of attack or defence</p>
     <table class="table">
@@ -16,13 +16,13 @@
                 <td>{{ player.get_position_display }}</td>
                 <td>{{ player.attack }}</td>
                 <td>{{ player.defence }}</td>
-                <td><a href="{% url 'personal-training' player_pk=player.id %}"><button class="btn">TRAIN</button></a></td>
+                <td><a href="{% url 'personal-training' player_pk=player.id %}"><button class="btn">TRAIN PERSONALLY</button></a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 </div>
     <br>
-    <a style="margin-left: 1280px" href="{% url 'team-training' %}"><button class="btn">TEAM TRAINING</button></a>
+    <a style="margin-left: 1240px" href="{% url 'team-training' %}"><button class="btn">TEAM TRAINING</button></a>
 
 {% endblock %}

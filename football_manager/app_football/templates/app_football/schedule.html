@@ -5,7 +5,13 @@
 <div class="container">
   <h2>SCHEDULE</h2>
     {% for round in rounds %}
-    <a href="{% url 'round' round_no=round %}"><button class="btn" type="submit">ROUND {{ round }}</button></a><br><br>
+      {% if round < next %}
+        <a href="{% url 'round' round_no=round %}"><button class="btn" type="submit">ROUND {{ round }}</button></a>    <span style="color: white">PLAYED</span><br><br>
+      {% elif round == next %}
+        <a href="{% url 'round' round_no=round %}"><button class="btn" type="submit">ROUND {{ round }}</button></a>    <span style="color: white">NEXT</span>  <br><br>
+      {% else %}
+        <a href="{% url 'round' round_no=round %}"><button class="btn" type="submit">ROUND {{ round }}</button></a><br><br>
+      {% endif %}
     {% endfor %}
 
 </div>
