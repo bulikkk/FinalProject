@@ -1,48 +1,18 @@
+{% extends 'app_football/index.html' %}
+
+{% block content %}
+
 {% load static %}
 
-<!doctype html>
-<html>
-	<head>
-        <meta charset="utf-8">
-        <title>Football Manager</title>
-	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <style>
-            body {background-repeat:no-repeat; background-size:100%; }
-            h1, h2, h3, h4, p {color: white}
-            .active>a {color: #67FF2E}
-            .info {color: #67FF2E; margin: 10px; padding-top: 15px; padding-bottom: 15px; line-height: 20px; position: relative;
-                display: block;}
-            .nav>li>a {margin: 10px;}
-            .navbar-brand {padding: 25px; color: #67FF2E}
-            .nav>li>a:hover{background: none;}
-            .active>a:hover{color: white}
-            .navbar-brand:hover{color: white}
-            th, td{text-align: center; color: white}
-            .team{}
-        </style>
-	</head>
-    <body style="background-image: url({% static 'Background_empty.jpg' %});">
-<div class="container">
-    <h1>Welcome to the Football Manager Symulator!</h1>
-
-
-
+<div class="container main">
+    <h1>Welcome</h1>
+    <h2>To the footbal manager symulator!</h2>
+    <br>
     <p>If you are already registered just LOG IN and keep playing!</p>
-
-
-    <a class="btn" href="{% url 'login' %}"><button class="btn">Log In</button></a> <a class="btn" href="{% url 'register' %}"><button class="btn">Register</button></a>
-
-    <div style="position: fixed; bottom: 10px; color: white;">
-    {% if request.user.is_authenticated %}
-        <p>Logged as: {{ user }}</p>
-    {% else %}
-        <p>Logged out</p>
-    {% endif %}
+    <br>
+    <div class="main-buttons">
+    <a href="{% url 'login' %}"><button class="btn button">Log In</button></a><a href="{% url 'register' %}"><button class="btn button">Register</button></a>
     </div>
 </div>
-    </body>
-</html>
+
+{% endblock %}

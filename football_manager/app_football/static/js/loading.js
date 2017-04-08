@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   	btn.addEventListener('click', function(){
   		document.querySelector('.team-form').classList.toggle('hidden');
-  		document.querySelector('.loader').classList.toggle('hidden');
+  		document.querySelectorAll('.loader').classList.toggle('hidden');
 });
 });
 

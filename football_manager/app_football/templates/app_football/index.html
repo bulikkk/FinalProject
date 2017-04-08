@@ -5,32 +5,25 @@
 	<head>
 		<meta charset="utf-8">
         <title>Football Manager</title>
-	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Poppins|Muli|Oswald|Ubuntu" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
 
 
+
         <style>
-            body {background-repeat:no-repeat; background-size:100%; }
-            h1, h2, h3, h4, p {color: white}
-            .hidden {display: None}
-            .active>a {color: #67FF2E}
-            .info {color: #67FF2E; margin: 10px; padding-top: 15px; padding-bottom: 15px; line-height: 20px; position: relative;
-                display: block;}
-            .nav>li>a {margin: 10px;}
-            .navbar-brand {padding: 25px; color: #67FF2E}
-            .nav>li>a:hover{background: none;}
-            .active>a:hover{color: white}
-            .navbar-brand:hover{color: white}
-            th, td{text-align: center; color: white}
-            .team{}
+
 
         </style>
 	</head>
-    <body style="background-image: url({% static 'Background_empty.jpg' %});">
+    <body style="background-image: url({% static 'pexels-photo.jpg' %});">
     <div class="container">
 
 
@@ -38,6 +31,14 @@
 
         {% endblock %}
 
+    </div>
+    <!--dodać context procesora z zalogowanym użytkownikiem i przyciskami zaloguj bądź zarejestruj-->
+    <div class="login-info">
+    {% if request.user.is_authenticated %}
+        <p>Logged as: {{ user }}</p>
+    {% else %}
+        <p>Logged out</p>
+    {% endif %}
     </div>
     <script
 	src="https://code.jquery.com/jquery-3.2.1.js"

@@ -1,4 +1,4 @@
-from faker import Factory
+import names
 from random import randint, choice
 
 from football_manager.settings import *
@@ -7,19 +7,16 @@ from django.contrib.auth.models import User
 
 
 def create_teams_names():
-    fake = Factory.create("en_GB")
-    name = fake.last_name()
+    name = names.get_last_name()
     return name + " FC"
 
 def create_teams(user_id):
-    for i in range(7):
+    for i in range(15):
         Team.objects.create(name=create_teams_names(), user=None, player_id=user_id)
 
 def create_name():
-    fake = Factory.create("en_GB")
-    first_name = fake.first_name()
-    last_name = fake.last_name()
-    return first_name, last_name
+    name = names.get_full_name(gender='male').split()
+    return name
 
 
 def create_players(user):
