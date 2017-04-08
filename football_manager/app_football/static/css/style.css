@@ -5,6 +5,14 @@ body {
 
 }
 
+h1 {
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Oswald';
+    font-size: 8em;
+    text-align: center;
+}
+
 h2 {
     color: white;
     text-transform: uppercase;
@@ -13,23 +21,11 @@ h2 {
     text-align: center;
 }
 
-.main {
-    margin-top: 15%
-}
-
-.register {
-    margin-top: 15%
-}
-
-.login {
-    margin-top: 15%
-}
-
-h1 {
+h3 {
     color: white;
     text-transform: uppercase;
     font-family: 'Oswald';
-    font-size: 8em;
+    font-size: 2.5em;
     text-align: center;
 }
 
@@ -40,7 +36,127 @@ p {
     text-align: center;
 }
 
+.main {
+    margin-top: 15%
+}
+
+.register {
+    margin-top: 0;
+}
+
+.fregister {
+    position: absolute;
+    right: 20.5em;
+}
+
+#register-info {
+    padding-top: 6.5em;
+}
+
+.login {
+    margin-top: 11%;
+}
+
+.form-group {
+    padding-left: 30%;
+    padding-top: 30px;
+    width: 40%;
+}
+
+.flogin {
+    position: absolute;
+    right: 20.5em;
+}
+
+form {
+    font-family: 'Poppins';
+    font-size: 1em;
+}
+
+label {
+    font-family: 'Poppins';
+    font-size: 1em;
+    width: 50px;
+    color: white;
+    padding-left: 30px;
+    display: inline-block;
+    vertical-align: middle;
+    clear: both;
+}
+
+.email-field {
+    background-color: transparent;
+    display: block;
+    margin: 2em;
+    width: 29em;
+    height: 3em;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.email-field:focus {
+    background-color: #BEDB39;
+}
+
+.login-field {
+    background-color: transparent;
+    display: block;
+    margin: 2em;
+    width: 29em;
+    height: 3em;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.login-field:focus {
+    background-color: #BEDB39;
+}
+
+.password-field {
+    background-color: transparent;
+    display: block;
+    margin: 2em;
+    width: 29em;
+    height: 3em;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.password-field:focus {
+    background-color: #BEDB39;
+}
+
+.teamname-field {
+    background-color: transparent;
+    display: block;
+    margin: 2em;
+    width: 29em;
+    height: 3em;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.teamname-field:focus {
+    background-color: #BEDB39;
+}
+
+.login-form {
+    width: 100%;
+    display: block;
+    position: relative;
+}
+
+.register {
+    text-align: center;
+}
+
+.rlogin {
+
+}
+
 .button {
+    font-family: 'Poppins';
+    font-size: 1em;
     width: 10em;
     background-color: transparent;
     border: 2px solid white;
@@ -66,12 +182,40 @@ p {
 
 .login-info {
     width: 100%;
-    background-color: #333333;
+    height: 3em;
+    background-color: transparent;
     position: fixed;
     bottom: 0;
     color: white;
-    text-align: left;
 }
+
+.credits {
+    color: #BEDB39;
+    font-family: 'Rancho', cursive;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    position: fixed;
+    bottom: 0.1em;
+    right: 1em;
+}
+
+#loader-sign {
+    position: fixed;
+    left: 46%;
+    top: 40%;
+    height: 150px;
+    width: 150px;
+}
+
+#loader-info {
+    padding-top: 17em;
+}
+
+
+
+
+
+
 
 .active>a {
     color: #67FF2E

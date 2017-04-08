@@ -6,45 +6,35 @@
 		<meta charset="utf-8">
         <title>Football Manager</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Poppins|Muli|Oswald|Ubuntu" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Poppins|Muli|Oswald|Ubuntu|Rancho" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="{% static '/css/style.css' %}">
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
-
-
-
-        <style>
-
-
-        </style>
 	</head>
     <body style="background-image: url({% static 'pexels-photo.jpg' %});">
     <div class="container">
 
-
         {% block content %}
+
 
         {% endblock %}
 
     </div>
-    <!--dodać context procesora z zalogowanym użytkownikiem i przyciskami zaloguj bądź zarejestruj-->
+
     <div class="login-info">
-    {% if request.user.is_authenticated %}
-        <p>Logged as: {{ user }}</p>
-    {% else %}
-        <p>Logged out</p>
-    {% endif %}
+        <p class="credits">Created by <span class="bul">bulikkk</span></p>
     </div>
+
+
     <script
 	src="https://code.jquery.com/jquery-3.2.1.js"
 	integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
 	crossorigin="anonymous">
 	</script>
-    <script type="text/javascript" src="{% static '../../static/js/loading.js' %}"></script>
+
     </body>
 </html>

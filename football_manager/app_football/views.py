@@ -32,7 +32,11 @@ class IndexView(View):
 class MainView(View):
 
     def get(self, request):
-        return render(request, 'app_football/main.html', {})
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(reverse('actions'))
+        else:
+            return render(request, 'app_football/main.html', {})
+
 
 
 class LowEnergyView(LoginRequiredMixin, View):
@@ -71,7 +75,7 @@ class LoginUserView(View):
         if form.is_valid():
             user = form.cleaned_data['user']
             login(request, user)
-            return HttpResponseRedirect(reverse('actions'))
+            return render(request, 'app_football/actions_view.html', {})
         else:
             return render(request, 'app_football/login.html', ctx)
 

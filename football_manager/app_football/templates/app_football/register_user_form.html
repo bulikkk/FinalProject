@@ -1,22 +1,23 @@
 {% extends 'app_football/index.html' %}
 
+
 {% block content %}
-<div class="container register">
+<div class="container login">
+
     <h2 >Registration Form</h2>
-    <div style="position: absolute; top: 50%; margin-top: -100px;">
-    <form action='' method='POST'>
-        {% csrf_token %}
-        {{ form }}
-        <button class="btn" style="color: black;" type='submit'>Register</button>
-    </form>
+    <div class="login-form">
+        <div class="form-group">
+            <form action='' method='POST'>
+                {% csrf_token %}
+                {{ form }}
+                <button class="btn button fregister" type='submit'>Register</button>
+            </form>
+        </div>
+        <p id="register-info">If you're already registered, please <strong>LOG IN!</strong></p>
+        <div class="register">
+            <a href="{% url 'login' %}"><button class="btn button fregister">Log In</button></a>
+        </div>
     </div>
 </div>
 
-     <div style="position: fixed; bottom: 10px; color: white;">
-    {% if request.user.is_authenticated %}
-        <p>Logged as: {{ user }} <a href="{% url 'logout' %}"><button class="btn">Log Out</button></a></p>
-    {% else %}
-        <p>Logged out <a href="{% url 'login' %}"><button class="btn">Log In</button></a></p>
-    {% endif %}
-     </div>
 {% endblock %}

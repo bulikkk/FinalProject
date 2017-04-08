@@ -12,10 +12,14 @@ class RegisterUserForm(forms.ModelForm):
         model = User
         fields = ['username', 'email', 'password']
 
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['password'].widget = forms.PasswordInput()
+        self.fields['password'].widget.attrs['class'] = 'password-field'
         self.fields['username'].help_text = ""
+        self.fields['username'].widget.attrs['class'] = 'login-field'
+        self.fields['email'].widget.attrs['class'] = 'email-field'
 
 
     def clean(self):
@@ -26,8 +30,8 @@ class RegisterUserForm(forms.ModelForm):
 
 
 class AuthForm(forms.Form):
-    login = forms.CharField(label='Username')
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    login = forms.CharField(widget=forms.TextInput(attrs={'class': 'login-field'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'password-field'}))
 
     def clean(self):
         """
@@ -47,7 +51,7 @@ class AuthForm(forms.Form):
 
 
 class CreateTeamForm(forms.Form):
-    name = forms.CharField(label='Team Name', max_length=64)
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'teamname-field'}))
 
 
 class EditPlayerForm(ModelForm):

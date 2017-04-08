@@ -3,21 +3,23 @@
 		
 {% block content %}
 <div class="container login">
+
 	<h2>Login form</h2>
-    <div class="form-group" style="position: absolute; top: 50%; margin-top: -100px;">
-    <form action='' method='POST'>
-		{% csrf_token %}
-		{{ form }}
-        <button class="btn" style="color: black;" type='submit'>Log In</button>
-    </form>
+    <div class="login-form">
+        <div class="form-group">
+            <form action='' method='POST'>
+                {% csrf_token %}
+                {{ form }}
+                <button class="btn button flogin" type='submit'>Log In</button>
+            </form>
+        </div>
+        <p id="register-info">If you don't have your profile, please <strong>REGISTER!</strong></p>
+        <div class="register">
+            <a href="{% url 'register' %}"><button class="btn button fregister">Register</button></a>
+        </div>
     </div>
+
+
 </div>
 
-<div style="position: fixed; bottom: 10px; color: white;">
-    {% if request.user.is_authenticated %}
-        <p>Logged as: {{ user }} <a href="{% url 'logout' %}"><button class="btn">Log Out</button></a>   <a href="{% url 'register' %}"><button class="btn">Register</button></a></p>
-    {% else %}
-        <p>Logged out <a href="{% url 'login' %}"><button class="btn">Log In</button></a>   <a href="{% url 'register' %}"><button class="btn">Register</button></a></p>
-    {% endif %}
-</div>
 {% endblock %}

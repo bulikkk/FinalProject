@@ -4,19 +4,25 @@
 
 {% load static %}
 
-	<h1>Team Creator!</h1>
-	<p>Name your team whatever you want!</p>
-    <form class="team-form" action='' method='POST'>
-		{% csrf_token %}
-		{{ form }}
-		<button class="btn submit" type='submit'>Create</button>
-	</form>
+<div class="container login">
 
-	<div class="loader hidden" style="position: fixed; left: 35%; top: 15%;">
-		<h2>CREATING TEAMS AND SCHEDULE</h2>
-		<h3>It might take a while</h3>
+	<h2>Team Creator</h2>
+	<div class="login-form">
+		<p>Name your team whatever you want</p>
+		<div class="form-group">
+			<form id="team-form" action='' method='POST'>
+				{% csrf_token %}
+				{{ form }}
+				<button id="submit" class="btn button fregister" type='submit'>Create</button>
+			</form>
+		</div>
+
+		<img id="loader-sign" class="hidden" src="{% static 'launcher-loader.gif' %}">
+		<div id="loader-info" class="hidden">
+			<h3>CREATING TEAMS AND SCHEDULE</h3>
+			<p>It might take a while</p>
+		</div>
 	</div>
-
-	<img class="loader hidden" src="{% static 'launcher-loader.gif' %}" style="position: fixed; left: 45%; top: 40%; height: 150px; width: 150px;">
-
+</div>
+<script type="text/javascript" src="{% static '../../static/js/loading.js' %}"></script>
 {% endblock %}
