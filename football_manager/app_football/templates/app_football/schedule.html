@@ -4,16 +4,35 @@
 
 <div class="container">
   <h2>SCHEDULE</h2>
+  <div class="columns">
     {% for round in rounds %}
-      {% if round < next %}
-        <a href="{% url 'round' round_no=round %}"><button class="btn" type="submit">ROUND {{ round }}</button></a>    <span style="color: white">PLAYED</span><br><br>
-      {% elif round == next %}
-        <a href="{% url 'round' round_no=round %}"><button class="btn" type="submit">ROUND {{ round }}</button></a>    <span style="color: white">NEXT</span>  <br><br>
+      {% if round <= 10 %}
+        {% if round < next %}
+          <div class="column-left"><a href="{% url 'round' round_no=round %}"><button class="btn button played-btn" type="submit">ROUND {{ round }}</button></a><span style="color: white">PLAYED</span></div>
+        {% elif round == next %}
+          <div class="column-left"><a href="{% url 'round' round_no=round %}"><button class="btn button next-btn" type="submit">ROUND {{ round }}</button></a><span style="color: white">NEXT</span></div>
+        {% else %}
+          <div class="column-left"><a href="{% url 'round' round_no=round %}"><button class="btn button none-btn" type="submit">ROUND {{ round }}</button></a></div>
+        {% endif %}
+      {% elif round <= 20 %}
+        {% if round < next %}
+          <div class="column-center"><a href="{% url 'round' round_no=round %}"><button class="btn button played-btn" type="submit">ROUND {{ round }}</button></a><span style="color: white">PLAYED</span></div>
+        {% elif round == next %}
+          <div class="column-center"><a href="{% url 'round' round_no=round %}"><button class="btn button next-btn" type="submit">ROUND {{ round }}</button></a><span style="color: white">NEXT</span></div>
+        {% else %}
+          <div class="column-center"><a href="{% url 'round' round_no=round %}"><button class="btn button none-btn" type="submit">ROUND {{ round }}</button></a></div>
+        {% endif %}
       {% else %}
-        <a href="{% url 'round' round_no=round %}"><button class="btn" type="submit">ROUND {{ round }}</button></a><br><br>
+        {% if round < next %}
+          <div class="column-right"><a href="{% url 'round' round_no=round %}"><button class="btn button played-btn" type="submit">ROUND {{ round }}</button></a><span style="color: white">PLAYED</span></div>
+        {% elif round == next %}
+          <div class="column-right"><a href="{% url 'round' round_no=round %}"><button class="btn button next-btn" type="submit">ROUND {{ round }}</button></a><span style="color: white">NEXT</span></div>
+        {% else %}
+          <div class="column-right"><a href="{% url 'round' round_no=round %}"><button class="btn button none-btn" type="submit">ROUND {{ round }}</button></a></div>
+        {% endif %}
       {% endif %}
     {% endfor %}
-
+  </div>
 </div>
 
 

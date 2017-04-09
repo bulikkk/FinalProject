@@ -8,10 +8,10 @@
             <thead>
                 <tr><th>Position</th><th>Team</th><th>Played</th><th>Wins</th><th>Draws</th><th>Loses</th><th>+/-</th><th>Points</th></tr>
             </thead>
-            <tbody>
+            <tbody class="table-body">
                 {% for team in teams %}
                     {% if team.user_id == user.id %}
-                        <tr>
+                        <tr class="player-team">
                             <td>{{ forloop.counter }}</td>
                             <td><a href="{% url 'team' %}">{{ team.name }}</a></td>
                             <td>{{ team.played }}</td>

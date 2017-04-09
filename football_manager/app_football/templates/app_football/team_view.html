@@ -7,17 +7,16 @@
         <h2 class="sub-header">PLAYERS</h2>
         <table class="table">
             <thead>
-                <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
+                <tr><th></th><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
             </thead>
             <tbody>
             {% for player in players %}
                 <tr>
-                    <td style="padding: 6px"><h4>{{ player.full_name }}
-                        <a href="{% url 'edit-player' pk=player.id %}"><button class="btn">EDIT</button></a></h4>
-                    </td>
-                    <td>{{ player.get_position_display }}</td>
-                    <td>{{ player.attack }}</td>
-                    <td>{{ player.defence }}</td>
+                    <td><a href="{% url 'edit-player' pk=player.id %}"><button class="edit-link button">EDIT</button></a></td>
+                    <td class="player-data">{{ player.full_name }}</td>
+                    <td class="player-data">{{ player.get_position_display }}</td>
+                    <td class="player-data">{{ player.attack }}</td>
+                    <td class="player-data">{{ player.defence }}</td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -1,18 +1,23 @@
 {% extends 'app_football/team.html' %}
 
 {% block team %}
+<div class="container">
+    <h2>EDIT PLAYER</h2>
+    <div class="login-form">
+        <div class="form-group">
+            <form action="" method="POST">
+               {% csrf_token %}
+               {{ form }}
+               <input class="btn button flogin" type="submit" value="UPDATE">
+           </form>
+        </div>
+    </div>
+    <div id="player-info">
+       <p>Position: {{ player.get_position_display }}</p>
 
-<div class="container" style="position: absolute; top: 30%; margin-top: -100px; margin-left: 30%">
+       <p>Attack: {{ player.attack }}</p>
 
-   <form action="" method="POST">
-       {% csrf_token %}
-       {{ form }}
-       <input class="btn" type="submit" value="UPDATE">
-   </form>
-   <p>Position: {{ player.get_position_display }}</p>
-
-   <p>Attack: {{ player.attack }}</p>
-
-   <p>Defence: {{ player.defence }}</p>
+       <p>Defence: {{ player.defence }}</p>
+    </div>
 </div>
 {% endblock %}

@@ -1,28 +1,30 @@
 {% extends 'app_football/team.html' %}
 
 {% block team %}
-<div class="container">
+<div class="container training">
     <h2 class="sub-header">TRAINING CENTER</h2>
-    <p>Personal training (energy cost 2) -  gives your player 2 points of attack or defence</p>
-    <p>Team training (energy cost 4) - 3 random players gets randomly 2 points of attack or defence</p>
+    <p><strong>Personal training (energy cost 2)</strong> -  gives your player 2 points of attack or defence</p>
+    <p><strong>Team training (energy cost 4)</strong> - 3 random players gets randomly 2 points of attack or defence</p>
+
     <table class="table">
         <thead>
-        <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th><th>Training</th></tr>
+            <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th><th>Training</th></tr>
         </thead>
         <tbody>
         {% for player in players %}
             <tr>
-                <td>{{ player.full_name }}</td>
-                <td>{{ player.get_position_display }}</td>
-                <td>{{ player.attack }}</td>
-                <td>{{ player.defence }}</td>
-                <td><a href="{% url 'personal-training' player_pk=player.id %}"><button class="btn">TRAIN PERSONALLY</button></a></td>
+                <td class="player-data">{{ player.full_name }}</td>
+                <td class="player-data">{{ player.get_position_display }}</td>
+                <td class="player-data">{{ player.attack }}</td>
+                <td class="player-data">{{ player.defence }}</td>
+                <td><a href="{% url 'personal-training' player_pk=player.id %}"><button class="train-person button">TRAIN PERSONALLY</button></a></td>
             </tr>
         {% endfor %}
         </tbody>
+        <tfoot>
+            <tr><td></td><td></td><td></td><td></td><td><a href="{% url 'team-training' %}"><button class="team-train btn button">TEAM TRAINING</button></a></td></tr>
+        </tfoot>
     </table>
 </div>
-    <br>
-    <a style="margin-left: 1240px" href="{% url 'team-training' %}"><button class="btn">TEAM TRAINING</button></a>
 
 {% endblock %}

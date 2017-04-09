@@ -59,6 +59,12 @@ class EditPlayerForm(ModelForm):
         model = Player
         fields = ['name', 'surname']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['class'] = 'name-field'
+        self.fields['surname'].widget.attrs['class'] = 'surname-field'
+
+
 
 
 

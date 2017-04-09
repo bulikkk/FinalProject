@@ -8,10 +8,10 @@
         <thead>
         <tr><th>No</th><th>Home Team</th><th>Away Team</th><th>Home team goals</th><th>Away team goals</th></tr>
         </thead>
-        <tbody>
+        <tbody class="table-body">
         {% for match in matches %}
             {% if match.home_team == user.team %}
-                <tr>
+                <tr class="player-team">
                     <td>{{ forloop.counter }}</td>
                     <td><a href="{% url 'team' %}">{{ match.home_team }}</a></td>
                     <td>{{ match.away_team }}</td>
@@ -24,7 +24,7 @@
                     {% endif %}
                 </tr>
             {% elif match.away_team == user.team %}
-                <tr>
+                <tr class="player-team">
                     <td>{{ forloop.counter }}</td>
                     <td>{{ match.home_team }}</td>
                     <td><a href="{% url 'team' %}">{{ match.away_team }}</a></td>
@@ -53,6 +53,28 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <div class="result-info">
+        {% for match in matches %}
+            {% if match.home_team == user.team and match.home_team_goals %}
+                {% if match.home_team_goals > match.away_team_goals %}
+                    <h1>WIN</h1>
+                {% elif match.home_team_goals == match.away_team_goals %}
+                    <h1>DRAW</h1>
+                {% elif match.home_team_goals != '-' and match.home_team_goals < match.away_team_goals %}
+                    <h1>LOSE</h1>
+                {% endif %}
+            {% elif match.away_team == user.team and match.home_team_goals %}
+                {% if match.home_team_goals > match.away_team_goals %}
+                    <h1>LOSE</h1>
+                {% elif match.home_team_goals == match.away_team_goals %}
+                    <h1>DRAW</h1>
+                {% elif match.home_team_goals < match.away_team_goals %}
+                    <h1>WIN</h1>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}

@@ -1,7 +1,15 @@
 body {
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+}
+
+body {
+    background: url('../../static/pexels-photo-field.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    /*-webkit-background-size: cover;*/
+    /*-moz-background-size: cover;*/
+    /*-o-background-size: cover;*/
 
 }
 
@@ -29,6 +37,14 @@ h3 {
     text-align: center;
 }
 
+h4 {
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Oswald';
+    font-size: 2em;
+    text-align: center;
+}
+
 p {
     color: white;
     font-family: 'Poppins';
@@ -46,7 +62,7 @@ p {
 
 .fregister {
     position: absolute;
-    right: 20.5em;
+    right: 23.8em;
 }
 
 #register-info {
@@ -65,7 +81,7 @@ p {
 
 .flogin {
     position: absolute;
-    right: 20.5em;
+    right: 23.8em;
 }
 
 form {
@@ -150,10 +166,6 @@ label {
     text-align: center;
 }
 
-.rlogin {
-
-}
-
 .button {
     font-family: 'Poppins';
     font-size: 1em;
@@ -165,7 +177,6 @@ label {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
     margin: 2.2em;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
@@ -211,18 +222,12 @@ label {
     padding-top: 17em;
 }
 
-
-
-
-
-
-
 .active>a {
-    color: #67FF2E
+    color: #BEDB39;
 }
 
 .info {
-    color: #67FF2E;
+    color: #BEDB39;
     margin: 10px;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -231,9 +236,36 @@ label {
     display: block;
 }
 
-.nav>li>a {margin: 10px;}
 
-.navbar-brand {padding: 25px; color: #67FF2E}
+.nav>li>a {
+    margin: 10px;
+}
+
+.navbar-brand {
+    padding: 25px;
+    color: #67FF2E;
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#navbar {
+    font-family: 'Poppins';
+    font-size: 1em;
+    background-color: #32302F;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+}
+
+#info-list>p {
+    font-size: 1em;
+    text-align: left;
+}
+
+#info-list>h4 {
+    text-align: left;
+}
 
 .nav>li>a:hover{background: none;}
 
@@ -243,4 +275,163 @@ label {
 
 th, td{text-align: center; color: white}
 
+#main-info {
+    margin-top: 5%;
+    width: 100%;
+}
 
+#info-list {
+    padding-left: 35em;
+}
+
+.player-name {
+    display: block;
+}
+
+td {color: white;
+    font-family: 'Oswald';
+    text-align: center;
+}
+
+.player-data {
+    font-size: 1.5em;
+}
+
+.table {
+    background-color: rgba(50,48,47,0.4);
+    font-family: 'Poppins';
+    font-size: 1em;
+}
+
+.table-body>tr>td {
+    font-size: 1.3em;
+}
+
+.player-team {
+    background-color: rgba(190,219,57,0.4);
+}
+
+.player-team>td>a {
+    color: white;
+}
+
+.train-person {
+    font-family: 'Poppins';
+    font-size: 1em;
+    padding: 0;
+    width: 12em;
+    height: 2.5em;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 4px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0em;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+
+.edit-link {
+    font-family: 'Poppins';
+    font-size: 1em;
+    padding: 0;
+    width: 8em;
+    height: 2em;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 4px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0em;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.name-field {
+    background-color: transparent;
+    display: block;
+    margin: 2em;
+    width: 29em;
+    height: 3em;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.name-field:focus {
+    background-color: #BEDB39;
+}
+
+.surname-field {
+    background-color: transparent;
+    display: block;
+    margin: 2em;
+    width: 29em;
+    height: 3em;
+    border: 2px solid white;
+    border-radius: 4px;
+}
+
+.surname-field:focus {
+    background-color: #BEDB39;
+}
+
+#player-info {
+    display: block;
+    font-size: 1.5em;
+    margin-top: 8em;
+}
+
+.played-btn {
+    background-color: #BEDB39;
+    border-color: #BEDB39;
+    margin: 0.2em;
+}
+
+.played-btn:hover {
+    background-color: #BEDB39;
+    border-color: #BEDB39;
+    color: rgb(50,48,47)
+}
+
+.next-btn {
+    background-color: #32302F;
+    border-color: #32302F;
+    margin: 0.2em;
+}
+
+.next-btn:hover {
+    background-color: #32302F;
+    border-color: #32302F;
+    color: #BEDB39;
+}
+
+.none-btn {
+    background-color: rgba(50,48,47,0.4);
+    border-color: rgba(50,48,47,0.4);
+    margin: 0.2em;
+}
+
+.none-btn:hover {
+    background-color: rgba(50,48,47,0.4);
+    border-color: rgba(50,48,47,0.4);
+    color: rgb(50,48,47)
+}
+
+.columns {
+    margin-left: 12em;
+    column-count: 3;
+}
+
+.training>p {
+    font-size: 1em;
+}
+
+.team-train {
+    width: 100%;
+    margin: 0;
+}
