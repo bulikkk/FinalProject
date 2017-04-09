@@ -3,17 +3,18 @@
 {% block team %}
 <div class="container">
     <h2 class="sub-header">Team Training Center</h2>
+    <p><strong>Team training (energy cost 4)</strong> - 3 random players gets randomly 2 points of attack or defence</p>
     <table class="table">
         <thead>
         <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
         </thead>
-        <tbody>
+        <tbody class="table-body">
         {% for player in players %}
             <tr>
-                <td>{{ player.full_name }}</td>
-                <td>{{ player.get_position_display }}</td>
-                <td>{{ player.attack }}</td>
-                <td>{{ player.defence }}</td>
+                <td class="player-data">{{ player.full_name }}</td>
+                <td class="player-data">{{ player.get_position_display }}</td>
+                <td class="player-data">{{ player.attack }}</td>
+                <td class="player-data">{{ player.defence }}</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -21,6 +22,6 @@
 </div>
 <form action="" method="POST">
     {% csrf_token %}
-    <input style="margin-left: 1280px" class="btn" type="submit" name="team_train" value="TRAIN">
+    <input class="btn button train-team" type="submit" name="team_train" value="TRAIN">
 </form>
 {% endblock %}

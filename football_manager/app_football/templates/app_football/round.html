@@ -56,15 +56,15 @@
 
     <div class="result-info">
         {% for match in matches %}
-            {% if match.home_team == user.team and match.home_team_goals %}
+            {% if match.home_team == user.team and match.home_team_goals != None %}
                 {% if match.home_team_goals > match.away_team_goals %}
                     <h1>WIN</h1>
                 {% elif match.home_team_goals == match.away_team_goals %}
                     <h1>DRAW</h1>
-                {% elif match.home_team_goals != '-' and match.home_team_goals < match.away_team_goals %}
+                {% elif match.home_team_goals < match.away_team_goals %}
                     <h1>LOSE</h1>
                 {% endif %}
-            {% elif match.away_team == user.team and match.home_team_goals %}
+            {% elif match.away_team == user.team and match.home_team_goals != None %}
                 {% if match.home_team_goals > match.away_team_goals %}
                     <h1>LOSE</h1>
                 {% elif match.home_team_goals == match.away_team_goals %}

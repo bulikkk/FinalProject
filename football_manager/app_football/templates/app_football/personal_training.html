@@ -1,18 +1,20 @@
 {% extends 'app_football/team.html' %}
 
 {% block team %}
-<div class="container" style="position: absolute; top: 30%; margin-top: -100px; margin-left: 30%">
-    <h3>{{ player.full_name }}</h3>
+<div class="container">
+    <h2 class="sub-header">PERSONAL TRAINING</h2>
+    <p><strong>Personal training (energy cost 2)</strong> -  gives your player 2 points of attack or defence</p>
+        <h3>{{ player.full_name }}</h3>
 
-    <p>Position: {{ player.get_position_display }}</p>
+        <p>Position: {{ player.get_position_display }}</p>
 
-    <form action="" method="POST">
-        {% csrf_token %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <table class="training-table">
+                <tr><td>Attack: {{ player.attack }} </td><td><input class="btn train" type="submit" name="train_att" value='Train Attack'></td></tr>
 
-        <p>Attack: {{ player.attack }} <input class="btn" type="submit" name="train_att" value='Train Attack'></p>
-
-        <p>Defence: {{ player.defence }} <input class="btn" type="submit" name="train_def" value='Train Defence'></p>
-
-    </form>
+                <tr><td>Defence: {{ player.defence }} </td><td><input class="btn train" type="submit" name="train_def" value='Train Defence'></td></tr>
+            </table>
+        </form>
 </div>
 {% endblock %}
