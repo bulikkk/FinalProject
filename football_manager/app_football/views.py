@@ -227,7 +227,6 @@ class TeamTrainingView(LoginRequiredMixin, View):
         team = Team.objects.get(user=self.request.user)
         players = team.player_set.all()
         user = self.request.user
-        args = {}
         ctx = {'players': players}
         if request.POST.get("team_train"):
             if user.energy < 4:
@@ -235,18 +234,111 @@ class TeamTrainingView(LoginRequiredMixin, View):
             else:
                 user.energy -= 4
                 user.save()
-                for i in range(0, 3):
+                i = 0
+                while i < 3:
                     player = choice(players)
-                    atr = randint(0, 1)
-                    args[player.id] = atr
-                    if atr == 0:
-                        player.attack += 2
+                    if player.attack == 100 and player.defence == 100:
+                        continue
+                    elif player.attack == 100 and player.defence == 99:
+                        player.defence += 1
                         player.save()
-                    elif atr == 1:
+                        i += 1
+                    elif player.attack == 100 and player.defence < 99:
                         player.defence += 2
                         player.save()
-                ctx = {'players': players,
-                       'args': args}
+                        i += 1
+                    elif player.attack == 99 and player.defence == 100:
+                        player.attack += 1
+                        player.save()
+                        i += 1
+                    elif player.attack < 99 and player.defence == 100:
+                        player.attack += 2
+                        player.save()
+                        i += 1
+                    elif player.attack == 99 and player.defence == 99:
+                        atr = choice(0, 1)
+                        if atr == 0:
+                            player.attack += 1
+                            player.save()
+                            i += 1
+                        elif atr == 1:
+                            player.defence += 1
+                            player.save()
+                            i += 1
+                    elif player.attack < 99 and player.defence == 99:
+                        atr = choice(0, 1)
+                        if atr == 0:
+                            player.attack += 2
+                            player.save()
+                            i += 1
+                        elif atr == 1:
+                            player.defence += 1
+                            player.save()
+                            i += 1
+                    elif player.attack == 99 and player.defence < 99:
+                        atr = choice(0, 1)
+                        if atr == 0:
+                            player.attack += 1
+                            player.save()
+                            i += 1
+                        elif atr == 1:
+                            player.defence += 2
+                            player.save()
+                            i += 1
+                    elif player.attack < 99 and player.defence < 99:
+                        atr = choice(0, 1)
+                        if atr == 0:
+                            player.attack += 2
+                            player.save()
+                            i += 1
+                        elif atr == 1:
+                            player.defence += 2
+                            player.save()
+                            i += 1
+                    else:
+                        break
+
+                # for i in range(0, 3):
+                #     player = choice(players)
+                #     atr = randint(0, 1)
+                #     if atr == 0:
+                #         if player.attack >= 100:
+                #             for player in players:
+                #                 if player.attack < 99:
+                #                     player.attack += 2
+                #                     player.save()
+                #                 elif player.attack == 99:
+                #                     player.attack += 1
+                #                     player.save()
+                #                 else:
+                #                     continue
+                #         elif player.attack == 99:
+                #             player.attack += 1
+                #             player.save()
+                #         else:
+                #             player.attack += 2
+                #             player.save()
+                #     elif atr == 1:
+                #         if player.defence >= 100:
+                #             for player in players:
+                #                 if player.defence >= 100:
+                #                     continue
+                #                 elif player.defence == 99:
+                #                     player.defence += 1
+                #                     player.save()
+                #                 elif player.defence < 99:
+                #                     player.defence += 2
+                #                     player.save()
+                #                 else:
+                #                     break
+                #         elif player.defence == 99:
+                #             player.defence += 1
+                #             player.save()
+                #         else:
+                #             player.defence += 2
+                #             player.save()
+
+                ctx = {'players': players}
                 return render(request, 'app_football/team_training.html', ctx)
         return render(request, 'app_football/team_training.html', ctx)
 

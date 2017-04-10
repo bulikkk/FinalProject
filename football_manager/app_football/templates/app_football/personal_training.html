@@ -11,7 +11,7 @@
         <form action="" method="POST">
             {% csrf_token %}
             <table class="training-table">
-                {% if player.attack >= 100 %} player.defence >= 100 %}
+                {% if player.attack >= 100 %}
                 <tr><td>Attack: {{ player.attack }} </td><td><input class="btn train" type="submit" name="train_att" value='Train Attack' disabled></td></tr>
                 {% else %}
                 <tr><td>Attack: {{ player.attack }} </td><td><input class="btn train" type="submit" name="train_att" value='Train Attack'></td></tr>

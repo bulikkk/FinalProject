@@ -44,18 +44,13 @@ def create_players(user):
 
 def create_rounds(user_id):
     teams = Team.objects.filter(player_id=user_id)
-
     for home in teams:
-
         for away in teams:
-
             if home == away:
                 continue
-
             round_no = 1
             index = 0
             matches = Match.objects.filter(player_id=user_id)
-
             if not matches:
                 Match.objects.create(player_id=user_id, home_team=home, away_team=away, round_no=round_no)
                 continue
@@ -98,23 +93,28 @@ def next_round(user):
 
 
 def match_result(match):
+
     home_team_attack = 0
     home_team_defence = 0
     away_team_attack = 0
     away_team_defence = 0
+
     home_win = 25
     draw = 20
     away_win = 15
+
     home = match.home_team
     home_players = Player.objects.filter(team=home)
     for player in home_players:
         home_team_attack += player.attack
         home_team_defence += player.defence
+
     away = match.away_team
     away_players = Player.objects.filter(team=away)
     for player in away_players:
         away_team_attack += player.attack
         away_team_defence += player.defence
+
     if (home_team_attack > away_team_attack) and (home_team_defence > away_team_defence):
         home_win += 40
     elif (home_team_attack > away_team_attack) and (home_team_defence < away_team_defence):
@@ -142,7 +142,7 @@ def match_result(match):
         away_win += 20
 
 
-    result = randint(1, 100)
+    result = choice(range(1, 100))
     team_home_goals = 0
     team_away_goals = 0
 
@@ -150,7 +150,7 @@ def match_result(match):
         team_home_goals += choice(range(1, 10))
         team_away_goals += choice(range(0, team_home_goals))
     elif home_win < result <= (home_win + draw):
-        team_home_goals += choice(range(1, 10))
+        team_home_goals += choice(range(0, 10))
         team_away_goals += team_home_goals
     elif result > (home_win + draw):
         team_away_goals += choice(range(1, 10))
