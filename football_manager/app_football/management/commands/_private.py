@@ -87,6 +87,12 @@ def next_round(user):
             next = round.round_no
             match = round
             return next, match
+    else:
+        next = None
+        match = None
+        return next, match
+
+
 
 
 def match_result(match):

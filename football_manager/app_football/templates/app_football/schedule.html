@@ -2,6 +2,23 @@
 
 {% block team %}
 
+{% if not next %}
+<div class="container">
+  <h2>SCHEDULE</h2>
+  <div class="columns">
+    {% for round in rounds %}
+      {% if round <= 10 %}
+          <div class="column-left"><a href="{% url 'round' round_no=round %}"><button class="btn button played-btn" type="submit">ROUND {{ round }}</button></a><span style="color: white">PLAYED</span></div>
+      {% elif round <= 20 %}
+          <div class="column-center"><a href="{% url 'round' round_no=round %}"><button class="btn button played-btn" type="submit">ROUND {{ round }}</button></a><span style="color: white">PLAYED</span></div>
+      {% else %}
+          <div class="column-right"><a href="{% url 'round' round_no=round %}"><button class="btn button played-btn" type="submit">ROUND {{ round }}</button></a><span style="color: white">PLAYED</span></div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% else %}
 <div class="container">
   <h2>SCHEDULE</h2>
   <div class="columns">
@@ -34,6 +51,7 @@
     {% endfor %}
   </div>
 </div>
+{% endif %}
 
 
 

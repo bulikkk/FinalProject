@@ -6,5 +6,5 @@ document.addEventListener("DOMContentLoaded", function() {
   		document.querySelector('#team-form').classList.toggle('hidden');
   		document.querySelector('#loader-sign').classList.toggle('hidden');
   		document.querySelector('#loader-info').classList.toggle('hidden');
-});
+	});
 });

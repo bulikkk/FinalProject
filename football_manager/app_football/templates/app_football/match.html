@@ -2,20 +2,27 @@
 
 {% block team %}
 
+{% if not match and not round_no %}
+
+<div class="container">
+    <h2 class="sub-header">All Played</h2>
+</div>
+
+{% else %}
 
 <div class="container">
     <h2 class="sub-header">ROUND {{ round_no }}</h2>
 
-    <p>Each match costs you 6 points of energy</p>
+    <p>Each <strong>match</strong> costs you 6 points of energy</p>
 
     <table class="table">
         <thead>
         <tr><th>No</th><th>Home Team</th><th>Away Team</th><th>Home team goals</th><th>Away team goals</th></tr>
         </thead>
-        <tbody>
+        <tbody class="table-body">
         {% for match in matches %}
             {% if match.home_team == user.team %}
-                <tr>
+                <tr class="player-team">
                     <td>{{ forloop.counter }}</td>
                     <td><a href="{% url 'team' %}">{{ match.home_team }}</a></td>
                     <td>{{ match.away_team }}</td>
@@ -28,7 +35,7 @@
                     {% endif %}
                 </tr>
             {% elif match.away_team == user.team %}
-                <tr>
+                <tr class="player-team">
                     <td>{{ forloop.counter }}</td>
                     <td>{{ match.home_team }}</td>
                     <td><a href="{% url 'team' %}">{{ match.away_team }}</a></td>
@@ -58,10 +65,10 @@
         </tbody>
     </table>
 </div>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <input class="btn" style="margin-left: 1280px" type="submit" name="play" value="LET'S PLAY">
-    </form>
-
+<form action="" method="POST">
+    {% csrf_token %}
+    <input id="train" class="train-team btn button" type="submit" name="play" value="LET'S PLAY">
+</form>
+{% endif %}
 
 {% endblock %}

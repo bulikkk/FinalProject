@@ -1,21 +1,17 @@
 {% extends 'app_football/team.html' %}
 
 {% block team %}
-    <form action="" method="POST">
-        {% csrf_token %}
-    <input class="btn" style="margin-left: 1280px" type="submit" value="LET'S PLAY">
-    </form>
 <div class="row">
-    <div class="col-sm-4">
+    <div class="column-left-two">
         <div class="container">
-            <h2 class="sub-header">HOME TEAM</h2>
-            <h3 class="sub-header">{{ home.name }}</h3>
+            <h2 class="sub-header sub2">HOME TEAM</h2>
+            <h3 class="sub-header sub2">{{ home.name }}</h3>
 
-            <table class="table">
+            <table class="table table2">
                 <thead>
                 <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
                 </thead>
-                <tbody>
+                <tbody class="table-body">
                 {% for player in home_players %}
                     <tr>
                         <td>{{ player.full_name }}</td>
@@ -28,17 +24,16 @@
             </table>
         </div>
     </div>
-    <div class="col-sm-8">
+    <div class="column-right-two">
         <div class="container">
-            <h2 class="sub-header">AWAY TEAM</h2>
+            <h2 class="sub-header sub2">AWAY TEAM</h2>
+            <h3 class="sub-header sub2">{{ away.name }}</h3>
 
-            <h3 class="sub-header">{{ away.name }}</h3>
-
-            <table class="table">
+            <table class="table table2">
                 <thead>
                 <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
                 </thead>
-                <tbody
+                <tbody class="table-body">
                 {% for player in away_players %}
                     <tr>
                         <td>{{ player.full_name }}</td>
@@ -52,4 +47,8 @@
         </div>
     </div>
 </div>
+<form action="" method="POST">
+        {% csrf_token %}
+<input id="train" class="train-team btn button" style="margin-left: 1280px" type="submit" value="LET'S PLAY">
+</form>
 {% endblock %}

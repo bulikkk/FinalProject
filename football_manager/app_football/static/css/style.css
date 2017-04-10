@@ -201,7 +201,7 @@ label {
 }
 
 .credits {
-    color: #BEDB39;
+    color: black;
     font-family: 'Rancho', cursive;
     margin-bottom: 5px;
     margin-top: 5px;
@@ -427,6 +427,33 @@ td {color: white;
     column-count: 3;
 }
 
+.row {
+    margin-left: 3em;
+    column-count: 2;
+}
+
+.column-left-two {
+    width: 50%;
+    max-width: 50%;
+    margin-bottom: 10px;
+}
+
+.column-right-two {
+    width: 50%;
+    max-width: 50%;
+    margin-bottom: 10px;
+}
+
+.table2 {
+    width: 70%;
+    max-width: 70%;
+    margin-bottom: 10px;
+}
+
+.sub2 {
+    display: inline-block;
+}
+
 .training>p {
     font-size: 1em;
 }
@@ -474,4 +501,19 @@ td {color: white;
     margin: 0;
     position: absolute;
     right: 33em;
+}
+
+#train {
+    font-size: 2em;
+    padding: 0.2em;
+    position: absolute;
+    right: 16.5em;
+}
+
+.added {
+    color: #BEDB39;
+}
+
+.low {
+    margin-top: 2em;
 }

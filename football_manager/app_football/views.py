@@ -32,7 +32,7 @@ class IndexView(View):
 class MainView(View):
 
     def get(self, request):
-        if request.user.is_authenticated:
+        if self.request.user.is_authenticated:
             return HttpResponseRedirect(reverse('actions'))
         else:
             return render(request, 'app_football/main.html', {})
@@ -114,7 +114,7 @@ class CreateTeamView(LoginRequiredMixin, View):
 class TeamView(LoginRequiredMixin, View):
 
     def get(self, request):
-        team = Team.objects.get(user=request.user)
+        team = Team.objects.get(user=self.request.user)
         players = Player.objects.filter(team=team)
         ctx = {'players': players}
         return render(request, 'app_football/team_view.html', ctx)
@@ -153,15 +153,14 @@ class EditPlayerView(LoginRequiredMixin, View):
 class ActionsView(LoginRequiredMixin, View):
 
     def get(self, request):
-        team = Team.objects.get(user=request.user)
-        ctx = {'team': team}
+        ctx = {}
         return render(request, 'app_football/actions_view.html', ctx)
 
 
 class TableView(LoginRequiredMixin, View):
 
     def get(self, request):
-        user = request.user
+        user = self.request.user
         teams = Team.objects.filter(player_id=user.id).order_by('-points', '-goals_sum')
 
         ctx = {'teams': teams}
@@ -171,7 +170,7 @@ class TableView(LoginRequiredMixin, View):
 class TrainingView(LoginRequiredMixin, View):
 
     def get(self, request):
-        team = Team.objects.get(user=request.user)
+        team = Team.objects.get(user=self.request.user)
         players = Player.objects.filter(team=team)
         ctx = {'players': players}
         return render(request, 'app_football/training_view.html', ctx)
@@ -187,7 +186,7 @@ class PersonalTrainingView(LoginRequiredMixin, View):
     def post(self, request, player_pk):
         player = Player.objects.get(pk=player_pk)
         team = player.team
-        user = request.user
+        user = self.request.user
         ctx = {'player': player}
         if request.POST.get("train_att"):
             if user.energy < 2:
@@ -213,15 +212,16 @@ class PersonalTrainingView(LoginRequiredMixin, View):
 class TeamTrainingView(LoginRequiredMixin, View):
 
     def get(self, request):
-        team = Team.objects.get(user=request.user, is_user_team=True)
+        team = Team.objects.get(user=self.request.user)
         players = team.player_set.all()
         ctx = {'players': players}
         return render(request, 'app_football/team_training.html', ctx)
 
     def post(self, request):
-        team = Team.objects.get(user=request.user, is_user_team=True)
+        team = Team.objects.get(user=self.request.user)
         players = team.player_set.all()
-        user = request.user
+        user = self.request.user
+        args = {}
         ctx = {'players': players}
         if request.POST.get("team_train"):
             if user.energy < 4:
@@ -232,14 +232,17 @@ class TeamTrainingView(LoginRequiredMixin, View):
                 for i in range(0, 3):
                     player = choice(players)
                     atr = randint(0, 1)
+                    args[player.id] = atr
                     if atr == 0:
                         player.attack += 2
                         player.save()
                     elif atr == 1:
                         player.defence += 2
                         player.save()
+                ctx = {'players': players,
+                       'args': args}
                 return render(request, 'app_football/team_training.html', ctx)
-        return render(request, 'app_football/personal_training.html', ctx)
+        return render(request, 'app_football/team_training.html', ctx)
 
 
 class ScheduleView(LoginRequiredMixin, View):
@@ -260,7 +263,7 @@ class ScheduleView(LoginRequiredMixin, View):
 class RoundView(LoginRequiredMixin, View):
 
     def get(self, request, round_no):
-        user = request.user
+        user = self.request.user
         matches = Match.objects.raw('SELECT * FROM app_football_match WHERE round_no={} AND player_id={}'.format(round_no, user.id))
         ctx = {'matches': matches,
                'round_no': round_no}
@@ -270,7 +273,7 @@ class RoundView(LoginRequiredMixin, View):
 class MatchView(LoginRequiredMixin, View):
 
     def get(self, request):
-        user = request.user
+        user = self.request.user
         next_match = next_round(user)[0]
         matches = Match.objects.raw(
             'SELECT * FROM app_football_match WHERE round_no={} AND player_id={}'.format(next_match, user.id))
@@ -279,7 +282,7 @@ class MatchView(LoginRequiredMixin, View):
         return render(request, 'app_football/match.html', ctx)
 
     def post(self, request):
-        user = request.user
+        user = self.request.user
         team = Team.objects.get(user=user)
         next_match = next_round(user)[0]
         matches = Match.objects.raw(
@@ -297,29 +300,31 @@ class MatchView(LoginRequiredMixin, View):
 class GameView(LoginRequiredMixin, View):
 
     def get(self, request):
-        user = request.user
+        user = self.request.user
+        # błąd z generowaniem wyniku - gdy skończą się mecze dla wszystkich drużyn generuje po 30 wyników!
         match = next_round(user)[1]
-        home = match.home_team
-        home_players = Player.objects.filter(team=home)
-        away = match.away_team
-        away_players = Player.objects.filter(team=away)
-        ctx = {'match': match,
-               'home': home,
-               'home_players': home_players,
-               'away': away,
-               'away_players': away_players}
-        return render(request, 'app_football/game.html', ctx)
+        if not match:
+            return render(request, 'app_football/match.html', {})
+        else:
+            home = match.home_team
+            home_players = Player.objects.filter(team=home)
+            away = match.away_team
+            away_players = Player.objects.filter(team=away)
+            ctx = {'match': match,
+                   'home': home,
+                   'home_players': home_players,
+                   'away': away,
+                   'away_players': away_players}
+            return render(request, 'app_football/game.html', ctx)
 
     def post(self, request):
-        user = request.user
+        user = self.request.user
         user.energy -= 6
         user.save()
 
-
-
         round_no = next_round(user)[0]
-        match = next_round(user)[1]
-        matches = Match.objects.filter(round_no=round_no)
+
+        matches = Match.objects.filter(round_no=round_no).filter(player_id=user.id)
         for match in matches:
             result = match_result(match)
             match.home_team_goals = result[0]
