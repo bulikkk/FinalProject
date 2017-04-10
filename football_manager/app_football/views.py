@@ -192,7 +192,10 @@ class PersonalTrainingView(LoginRequiredMixin, View):
             if user.energy < 2:
                 return redirect(reverse('low-energy'))
             else:
-                player.attack += 2
+                if player.attack == 99:
+                    player.attack += 1
+                else:
+                    player.attack += 2
                 player.save()
                 user.energy -= 2
                 user.save()
@@ -201,7 +204,10 @@ class PersonalTrainingView(LoginRequiredMixin, View):
             if user.energy < 2:
                 return redirect(reverse('low-energy'))
             else:
-                player.defence += 2
+                if player.defence == 99:
+                    player.defence += 1
+                else:
+                    player.defence += 2
                 player.save()
                 user.energy -= 2
                 user.save()
@@ -277,6 +283,10 @@ class MatchView(LoginRequiredMixin, View):
         next_match = next_round(user)[0]
         matches = Match.objects.raw(
             'SELECT * FROM app_football_match WHERE round_no={} AND player_id={}'.format(next_match, user.id))
+
+        if not next_match:
+            ctx = {}
+            return render(request, 'app_football/league_end.html', ctx)
         ctx = {'matches': matches,
                'round_no': next_match}
         return render(request, 'app_football/match.html', ctx)
@@ -301,7 +311,6 @@ class GameView(LoginRequiredMixin, View):
 
     def get(self, request):
         user = self.request.user
-        # błąd z generowaniem wyniku - gdy skończą się mecze dla wszystkich drużyn generuje po 30 wyników!
         match = next_round(user)[1]
         if not match:
             return render(request, 'app_football/match.html', {})

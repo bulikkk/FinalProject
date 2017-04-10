@@ -27,6 +27,7 @@ h2 {
     font-family: 'Oswald';
     font-size: 5em;
     text-align: center;
+    margin-top: 15px;
 }
 
 h3 {
@@ -82,11 +83,6 @@ p {
 .flogin {
     position: absolute;
     right: 23.8em;
-}
-
-form {
-    font-family: 'Poppins';
-    font-size: 1em;
 }
 
 label {
@@ -169,6 +165,7 @@ label {
 .button {
     font-family: 'Poppins';
     font-size: 1em;
+    font-weight: bold;
     width: 10em;
     background-color: transparent;
     border: 2px solid white;
@@ -390,6 +387,7 @@ td {color: white;
     background-color: #BEDB39;
     border-color: #BEDB39;
     margin: 0.2em;
+    font-size: 1.5em;
 }
 
 .played-btn:hover {
@@ -516,4 +514,8 @@ td {color: white;
 
 .low {
     margin-top: 2em;
+}
+
+#finish-form {
+    padding-left: 10em;
 }

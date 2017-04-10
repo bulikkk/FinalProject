@@ -3,7 +3,7 @@
 {% block team %}
 <div class="container">
     <h2 class="sub-header">PERSONAL TRAINING</h2>
-    <p><strong>Personal training (energy cost 2)</strong> -  gives your player 2 points of attack or defence</p>
+    <p><strong>Personal training (energy cost 2)</strong> -  gives your player 2 points of attack or defence (max attack or defence value is 100</p>
         <h3>{{ player.full_name }}</h3>
 
         <p>Position: {{ player.get_position_display }}</p>
@@ -11,9 +11,16 @@
         <form action="" method="POST">
             {% csrf_token %}
             <table class="training-table">
+                {% if player.attack >= 100 %} player.defence >= 100 %}
+                <tr><td>Attack: {{ player.attack }} </td><td><input class="btn train" type="submit" name="train_att" value='Train Attack' disabled></td></tr>
+                {% else %}
                 <tr><td>Attack: {{ player.attack }} </td><td><input class="btn train" type="submit" name="train_att" value='Train Attack'></td></tr>
-
+                {% endif %}
+                {% if player.defence >= 100 %}
+                <tr><td>Defence: {{ player.defence }} </td><td><input class="btn train" type="submit" name="train_def" value='Train Defence' disabled></td></tr>
+                {% else %}
                 <tr><td>Defence: {{ player.defence }} </td><td><input class="btn train" type="submit" name="train_def" value='Train Defence'></td></tr>
+                {% endif %}
             </table>
         </form>
 </div>

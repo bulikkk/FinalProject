@@ -2,14 +2,6 @@
 
 {% block team %}
 
-{% if not match and not round_no %}
-
-<div class="container">
-    <h2 class="sub-header">All Played</h2>
-</div>
-
-{% else %}
-
 <div class="container">
     <h2 class="sub-header">ROUND {{ round_no }}</h2>
 
@@ -69,6 +61,5 @@
     {% csrf_token %}
     <input id="train" class="train-team btn button" type="submit" name="play" value="LET'S PLAY">
 </form>
-{% endif %}
 
 {% endblock %}

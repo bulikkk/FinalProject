@@ -45,16 +45,18 @@ def create_players(user):
 def create_rounds(user_id):
     teams = Team.objects.filter(player_id=user_id)
 
-    for team in teams:
-        home = team
+    for home in teams:
+
         for away in teams:
-            away = away
-            round_no = 1
-            matches = Match.objects.filter(player_id=user_id)
-            index = 0
+
             if home == away:
                 continue
-            elif not matches:
+
+            round_no = 1
+            index = 0
+            matches = Match.objects.filter(player_id=user_id)
+
+            if not matches:
                 Match.objects.create(player_id=user_id, home_team=home, away_team=away, round_no=round_no)
                 continue
             else:
