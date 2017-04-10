@@ -235,10 +235,15 @@ class TeamTrainingView(LoginRequiredMixin, View):
                 user.energy -= 4
                 user.save()
                 i = 0
+                p = []
                 while i < 3:
                     player = choice(players)
-                    if player.attack == 100 and player.defence == 100:
+                    if len(p) == len(players):
+                        break
+                    if player in p:
                         continue
+                    elif player.attack == 100 and player.defence == 100:
+                        p.append(player)
                     elif player.attack == 100 and player.defence == 99:
                         player.defence += 1
                         player.save()
@@ -256,7 +261,7 @@ class TeamTrainingView(LoginRequiredMixin, View):
                         player.save()
                         i += 1
                     elif player.attack == 99 and player.defence == 99:
-                        atr = choice(0, 1)
+                        atr = randint(0, 1)
                         if atr == 0:
                             player.attack += 1
                             player.save()
@@ -266,7 +271,7 @@ class TeamTrainingView(LoginRequiredMixin, View):
                             player.save()
                             i += 1
                     elif player.attack < 99 and player.defence == 99:
-                        atr = choice(0, 1)
+                        atr = randint(0, 1)
                         if atr == 0:
                             player.attack += 2
                             player.save()
@@ -276,7 +281,7 @@ class TeamTrainingView(LoginRequiredMixin, View):
                             player.save()
                             i += 1
                     elif player.attack == 99 and player.defence < 99:
-                        atr = choice(0, 1)
+                        atr = randint(0, 1)
                         if atr == 0:
                             player.attack += 1
                             player.save()
@@ -286,7 +291,7 @@ class TeamTrainingView(LoginRequiredMixin, View):
                             player.save()
                             i += 1
                     elif player.attack < 99 and player.defence < 99:
-                        atr = choice(0, 1)
+                        atr = randint(0, 1)
                         if atr == 0:
                             player.attack += 2
                             player.save()
@@ -297,46 +302,6 @@ class TeamTrainingView(LoginRequiredMixin, View):
                             i += 1
                     else:
                         break
-
-                # for i in range(0, 3):
-                #     player = choice(players)
-                #     atr = randint(0, 1)
-                #     if atr == 0:
-                #         if player.attack >= 100:
-                #             for player in players:
-                #                 if player.attack < 99:
-                #                     player.attack += 2
-                #                     player.save()
-                #                 elif player.attack == 99:
-                #                     player.attack += 1
-                #                     player.save()
-                #                 else:
-                #                     continue
-                #         elif player.attack == 99:
-                #             player.attack += 1
-                #             player.save()
-                #         else:
-                #             player.attack += 2
-                #             player.save()
-                #     elif atr == 1:
-                #         if player.defence >= 100:
-                #             for player in players:
-                #                 if player.defence >= 100:
-                #                     continue
-                #                 elif player.defence == 99:
-                #                     player.defence += 1
-                #                     player.save()
-                #                 elif player.defence < 99:
-                #                     player.defence += 2
-                #                     player.save()
-                #                 else:
-                #                     break
-                #         elif player.defence == 99:
-                #             player.defence += 1
-                #             player.save()
-                #         else:
-                #             player.defence += 2
-                #             player.save()
 
                 ctx = {'players': players}
                 return render(request, 'app_football/team_training.html', ctx)
@@ -405,7 +370,7 @@ class GameView(LoginRequiredMixin, View):
         user = self.request.user
         match = next_round(user)[1]
         if not match:
-            return render(request, 'app_football/match.html', {})
+            return render(request, 'app_football/league_end.html', {})
         else:
             home = match.home_team
             home_players = Player.objects.filter(team=home)
