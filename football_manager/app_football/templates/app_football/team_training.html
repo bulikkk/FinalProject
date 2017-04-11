@@ -9,13 +9,36 @@
         <tr><th>Name</th><th>Position</th><th>Attack</th><th>Defence</th></tr>
         </thead>
         <tbody class="table-body">
+
         {% for player in players %}
-            <tr>
-                <td class="player-data">{{ player.full_name }}</td>
-                <td class="player-data">{{ player.get_position_display }}</td>
-                <td class="player-data">{{ player.attack }}</td>
-                <td class="player-data">{{ player.defence }}</td>
-            </tr>
+
+            {% with player|stringformat:"s"|add:" attack" as attack %}
+            {% with player|stringformat:"s"|add:" defence" as defence %}
+
+            {% if attack in player_it %}
+                <tr>
+                    <td class="player-data">{{ player.full_name }}</td>
+                    <td class="player-data">{{ player.get_position_display }}</td>
+                    <td class="player-data added">{{ player.attack }}</td>
+                    <td class="player-data">{{ player.defence }}</td>
+                </tr>
+            {% elif defence in player_it %}
+                <tr>
+                    <td class="player-data">{{ player.full_name }}</td>
+                    <td class="player-data">{{ player.get_position_display }}</td>
+                    <td class="player-data">{{ player.attack }}</td>
+                    <td class="player-data added">{{ player.defence }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td class="player-data">{{ player.full_name }}</td>
+                    <td class="player-data">{{ player.get_position_display }}</td>
+                    <td class="player-data">{{ player.attack }}</td>
+                    <td class="player-data">{{ player.defence }}</td>
+                </tr>
+            {% endif %}
+            {% endwith %}
+            {% endwith %}
         {% endfor %}
         </tbody>
     </table>

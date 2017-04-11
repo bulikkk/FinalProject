@@ -237,6 +237,7 @@ class TeamTrainingView(LoginRequiredMixin, View):
 
                 i = 0
                 p = []
+                player_it = []
                 while i < 3:
                     player = choice(players)
                     if len(p) == len(players):
@@ -247,65 +248,77 @@ class TeamTrainingView(LoginRequiredMixin, View):
                         p.append(player)
                     elif player.attack == 100 and player.defence == 99:
                         player.defence += 1
+                        player_it.append(str(player) + ' defence')
                         player.save()
                         i += 1
                     elif player.attack == 100 and player.defence < 99:
                         player.defence += 2
+                        player_it.append(str(player) + ' defence')
                         player.save()
                         i += 1
                     elif player.attack == 99 and player.defence == 100:
                         player.attack += 1
+                        player_it.append(str(player) + ' attack')
                         player.save()
                         i += 1
                     elif player.attack < 99 and player.defence == 100:
                         player.attack += 2
+                        player_it.append(str(player) + ' attack')
                         player.save()
                         i += 1
                     elif player.attack == 99 and player.defence == 99:
                         atr = randint(0, 1)
                         if atr == 0:
                             player.attack += 1
+                            player_it.append(str(player) + ' attack')
                             player.save()
                             i += 1
                         elif atr == 1:
                             player.defence += 1
+                            player_it.append(str(player) + ' defence')
                             player.save()
                             i += 1
                     elif player.attack < 99 and player.defence == 99:
                         atr = randint(0, 1)
                         if atr == 0:
                             player.attack += 2
+                            player_it.append(str(player) + ' attack')
                             player.save()
                             i += 1
                         elif atr == 1:
                             player.defence += 1
+                            player_it.append(str(player) + ' defence')
                             player.save()
                             i += 1
                     elif player.attack == 99 and player.defence < 99:
                         atr = randint(0, 1)
                         if atr == 0:
                             player.attack += 1
+                            player_it.append(str(player) + ' attack')
                             player.save()
                             i += 1
                         elif atr == 1:
                             player.defence += 2
+                            player_it.append(str(player) + ' defence')
                             player.save()
                             i += 1
                     elif player.attack < 99 and player.defence < 99:
                         atr = randint(0, 1)
                         if atr == 0:
                             player.attack += 2
+                            player_it.append(str(player) + ' attack')
                             player.save()
                             i += 1
                         elif atr == 1:
                             player.defence += 2
+                            player_it.append(str(player) + ' defence')
                             player.save()
                             i += 1
                     else:
                         break
 
                 ctx = {'players': players,
-                       'player_item': player_item}
+                       'player_it': player_it}
                 return render(request, 'app_football/team_training.html', ctx)
         return render(request, 'app_football/team_training.html', ctx)
 

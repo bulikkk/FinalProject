@@ -40,7 +40,7 @@ class Player(models.Model):
     team = models.ForeignKey('Team')
 
     def __str__(self):
-        return '{} {} | Position: {} | A: {} | D: {}'.format(self.name, self.surname, self.get_position_display(), self.attack, self.defence)
+        return '{}'.format(self.full_name)
 
     @property
     def full_name(self):
