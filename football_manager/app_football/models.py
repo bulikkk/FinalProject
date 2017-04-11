@@ -37,7 +37,7 @@ class Player(models.Model):
     position = models.IntegerField(choices=POSITION_CHOICE.items())
     attack = models.IntegerField()
     defence = models.IntegerField()
-    team = models.ForeignKey('Team')
+    team = models.ForeignKey(Team, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{}'.format(self.full_name)

@@ -442,7 +442,10 @@ class GameView(LoginRequiredMixin, View):
         return redirect(reverse('round', kwargs={'round_no': round_no}))
 
 
-class LeagueEndView(LoginRequiredMixin, View):
+class LeagueEndView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = ['app_football.add_schoolsubject']
+    raise_exception = True
+    permission_denied_message = "Brak dostępu"
 
     def get(self, request):
         return render(request, 'app_football/league_end.html', {})
@@ -450,10 +453,15 @@ class LeagueEndView(LoginRequiredMixin, View):
     def post(self, request):
         user = self.request.user
         if request.POST.get("play-again"):
-            pass
+            Team.objects.filter(player_id=user.id).update(played=0, wins=0, draws=0, loses=0, goals_sum=0, points=0)
+            Match.objects.filter(player_id=user.id).update(home_team_goals=None, away_team_goals=None)
+            return redirect(reverse('actions'))
 
         elif request.POST.get("new-teams"):
-            pass
+            Match.objects.filter(player_id=user.id).delete()
+            Player.objects.filter(player_id=user.id).filter(team != user.team)
+            Team.objects.filter(player_id=user.id).filter(user != user).delete()
+
 
         elif request.POST.get("all-new-teams"):
             pass
