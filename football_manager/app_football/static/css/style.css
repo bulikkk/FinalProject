@@ -512,9 +512,17 @@ td {color: white;
 }
 
 .low {
-    margin-top: 2em;
+    margin-top: 1.5em;
+}
+
+.low-logo {
+    height: 60px;
+    width: 60px;
+    position: fixed;
+    margin-left: 10em;
+
 }
 
 #finish-form {
-    padding-left: 10em;
+
 }

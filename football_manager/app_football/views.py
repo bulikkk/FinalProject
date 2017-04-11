@@ -357,11 +357,11 @@ class MatchView(LoginRequiredMixin, View):
             'SELECT * FROM app_football_match WHERE round_no={} AND player_id={}'.format(next_match, user.id))
 
         if not next_match:
-            ctx = {}
-            return render(request, 'app_football/league_end.html', ctx)
-        ctx = {'matches': matches,
+            return redirect(reverse('league-end'))
+        else:
+            ctx = {'matches': matches,
                'round_no': next_match}
-        return render(request, 'app_football/match.html', ctx)
+            return render(request, 'app_football/match.html', ctx)
 
     def post(self, request):
         user = self.request.user
@@ -385,7 +385,7 @@ class GameView(LoginRequiredMixin, View):
         user = self.request.user
         match = next_round(user)[1]
         if not match:
-            return render(request, 'app_football/league_end.html', {})
+            return redirect(reverse('league-end'))
         else:
             home = match.home_team
             home_players = Player.objects.filter(team=home)
@@ -442,6 +442,21 @@ class GameView(LoginRequiredMixin, View):
         return redirect(reverse('round', kwargs={'round_no': round_no}))
 
 
+class LeagueEndView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        return render(request, 'app_football/league_end.html', {})
+
+    def post(self, request):
+        user = self.request.user
+        if request.POST.get("play-again"):
+            pass
+
+        elif request.POST.get("new-teams"):
+            pass
+
+        elif request.POST.get("all-new-teams"):
+            pass
 
 
 

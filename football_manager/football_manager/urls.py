@@ -21,6 +21,7 @@ from app_football.views import (
     EditPlayerView,
     GameView,
     IndexView,
+    LeagueEndView,
     LoginUserView,
     LogoutUserView,
     LowEnergyView,
@@ -57,6 +58,7 @@ urlpatterns = [
     url(r'^round/(?P<round_no>(\d)+)$', RoundView.as_view(), name='round'),
     url(r'^match$', MatchView.as_view(), name='match'),
     url(r'^game$', GameView.as_view(), name='game'),
+    url(r'^league_end$', LeagueEndView.as_view(), name='league-end'),
 
 
 ]

@@ -33,6 +33,10 @@ CRONJOBS = [
     ('*/1 * * * *', 'app_football.cron.scheduled_energy_regeneration')
 ]
 
+LOGIN_URL = '/login'
+
+LOGIN_REDIRECT_URL = '/login'
+
 
 # Application definition
 
