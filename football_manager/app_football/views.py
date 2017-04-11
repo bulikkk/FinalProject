@@ -1,6 +1,7 @@
 from .management.commands._private import (
     create_teams,
     create_players,
+    create_players_again,
     create_rounds,
     match_result,
     next_round,
@@ -442,29 +443,36 @@ class GameView(LoginRequiredMixin, View):
         return redirect(reverse('round', kwargs={'round_no': round_no}))
 
 
-class LeagueEndView(LoginRequiredMixin, PermissionRequiredMixin, View):
-    permission_required = ['app_football.add_schoolsubject']
-    raise_exception = True
-    permission_denied_message = "Brak dostępu"
+class LeagueEndView(LoginRequiredMixin, View):
 
     def get(self, request):
         return render(request, 'app_football/league_end.html', {})
 
     def post(self, request):
         user = self.request.user
+        user_id = user.id
         if request.POST.get("play-again"):
             Team.objects.filter(player_id=user.id).update(played=0, wins=0, draws=0, loses=0, goals_sum=0, points=0)
             Match.objects.filter(player_id=user.id).update(home_team_goals=None, away_team_goals=None)
             return redirect(reverse('actions'))
 
         elif request.POST.get("new-teams"):
-            Match.objects.filter(player_id=user.id).delete()
-            Player.objects.filter(player_id=user.id).filter(team != user.team)
-            Team.objects.filter(player_id=user.id).filter(user != user).delete()
+            Team.objects.filter(player_id=user.id).filter(user=None).delete()
+            Team.objects.filter(player_id=user.id).update(played=0, wins=0, draws=0, loses=0, goals_sum=0, points=0)
+            Match.objects.filter(player_id=user.id).update(home_team_goals=None, away_team_goals=None)
 
+            create_teams(user_id)
+            create_players_again(user)
+            create_rounds(user_id)
+
+            return redirect(reverse('actions'))
 
         elif request.POST.get("all-new-teams"):
-            pass
+            Team.objects.filter(player_id=user.id).delete()
+
+            return HttpResponseRedirect(reverse('create-team'))
+
+
 
 
 

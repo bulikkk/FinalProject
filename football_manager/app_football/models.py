@@ -49,8 +49,8 @@ class Player(models.Model):
 
 class Match(models.Model):
     player_id = models.IntegerField(default=None)
-    home_team = models.ForeignKey(Team, related_name='home')
-    away_team = models.ForeignKey(Team, related_name='away', null=True, default=None)
+    home_team = models.ForeignKey(Team, related_name='home', on_delete=models.CASCADE)
+    away_team = models.ForeignKey(Team, related_name='away', null=True, default=None, on_delete=models.CASCADE)
     round_no = models.IntegerField()
     home_team_goals = models.IntegerField(null=True, default=None)
     away_team_goals = models.IntegerField(null=True, default=None)

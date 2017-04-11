@@ -42,6 +42,29 @@ def create_players(user):
                 Player.objects.create(name=name[0], surname=name[1], position=4, attack=att, defence=deff, team=team)
 
 
+def create_players_again(user):
+    player_range = [1,2,3,4,5,6,7,8,9,10,11]
+    for team in Team.objects.filter(player_id=user.id).filter(user=None):
+        for player in player_range:
+            name = create_name()
+            if player <= 1:
+                att = randint(20, 30)
+                deff = randint(50, 60)
+                Player.objects.create(name=name[0], surname=name[1], position=1, attack=att, defence=deff, team=team)
+            elif player <= 6:
+                att = randint(30, 40)
+                deff = randint(40, 50)
+                Player.objects.create(name=name[0], surname=name[1], position=2, attack=att, defence=deff, team=team)
+            elif player <= 9:
+                att = randint(40, 50)
+                deff = randint(30, 40)
+                Player.objects.create(name=name[0], surname=name[1], position=3, attack=att, defence=deff, team=team)
+            elif player <= 11:
+                att = randint(50, 60)
+                deff = randint(20, 30)
+                Player.objects.create(name=name[0], surname=name[1], position=4, attack=att, defence=deff, team=team)
+
+
 def create_rounds(user_id):
     teams = Team.objects.filter(player_id=user_id)
     for home in teams:
