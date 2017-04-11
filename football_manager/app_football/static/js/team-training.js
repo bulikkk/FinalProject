@@ -2,8 +2,9 @@
 document.addEventListener("DOMContentLoaded", function() {
 	var train = document.querySelector('form');
 
-  	train.addEventListener('submit', function(e){
-    e.preventDefault();
+  	train.addEventListener('click', function(){
+        Math.floor(Math.random() * 11) + 1;
+
 
 
 	});

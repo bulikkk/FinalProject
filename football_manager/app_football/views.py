@@ -234,6 +234,7 @@ class TeamTrainingView(LoginRequiredMixin, View):
             else:
                 user.energy -= 4
                 user.save()
+
                 i = 0
                 p = []
                 while i < 3:
@@ -303,7 +304,8 @@ class TeamTrainingView(LoginRequiredMixin, View):
                     else:
                         break
 
-                ctx = {'players': players}
+                ctx = {'players': players,
+                       'player_item': player_item}
                 return render(request, 'app_football/team_training.html', ctx)
         return render(request, 'app_football/team_training.html', ctx)
 
