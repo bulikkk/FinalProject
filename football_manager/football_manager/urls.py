@@ -18,6 +18,7 @@ from django.contrib import admin
 from app_football.views import (
     ActionsView,
     CreateTeamView,
+    CookiesView,
     EditPlayerView,
     GameView,
     IndexView,
@@ -59,6 +60,7 @@ urlpatterns = [
     url(r'^match$', MatchView.as_view(), name='match'),
     url(r'^game$', GameView.as_view(), name='game'),
     url(r'^league_end$', LeagueEndView.as_view(), name='league-end'),
+    url(r'^cookies$', CookiesView.as_view(), name='cookies'),
 
 
 ]

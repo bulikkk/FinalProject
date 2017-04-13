@@ -39,7 +39,6 @@ class MainView(View):
             return render(request, 'app_football/main.html', {})
 
 
-
 class LowEnergyView(LoginRequiredMixin, View):
 
     def get(self, request):
@@ -61,6 +60,12 @@ class RegisterUserView(View):
             return HttpResponseRedirect(reverse('create-team'))
         else:
             return render(request, 'app_football/register_user_form.html', ctx)
+
+
+class CookiesView(View):
+
+    def get(self, request):
+        return render(request, 'app_football/cookies.html', {})
 
 
 class LoginUserView(View):

@@ -2,6 +2,8 @@
 
 {% block team %}
 
+{% load static %}
+
 <div class="container">
     <h2 class="sub-header">This season is finished</h2>
     <p>You can <strong>PLAY AGAIN</strong> with the same teams,</p>
@@ -14,9 +16,19 @@
     {% csrf_token %}
     <div id="finish-btns" style="font-size: 1.5em; text-align: center; margin-top: 5em;">
         <input class="btn button" type="submit" name="play-again" value="PLAY AGAIN">
-        <input class="btn button" type="submit" name="new-teams" value="NEW TEAMS">
+        <input id="new-teams" class="btn button" type="submit" name="new-teams" value="NEW TEAMS">
         <input style="padding-left: 25px; padding-right: 20px;" class="btn button" type="submit" name="all-new-teams" value="ALL NEW TEAMS">
     </div>
 </form>
 
+<img id="loader-sign" class="hidden" src="{% static 'launcher-loader.gif' %}">
+<div id="loader-info" class="hidden">
+    <h3>CREATING TEAMS AND SCHEDULE</h3>
+    <p>It might take a while</p>
+</div>
+
+<script type="text/javascript" src="{% static '../../static/js/loader.js' %}"></script>
+
 {% endblock %}
+
+
