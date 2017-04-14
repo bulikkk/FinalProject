@@ -2,7 +2,7 @@ from mysql.connector import connect
 
 def scheduled_energy_regeneration():
 
-    cnx = connect(user='root', password='coderslab', host='localhost', database='aaa_finaleproject')
+    cnx = connect(user='bulikkk', password='qwer1234', host='127.0.0.1', database='football')
 
     cursor = cnx.cursor()
 

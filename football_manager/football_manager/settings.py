@@ -25,12 +25,12 @@ SECRET_KEY = '0^dnx3snd&9-j+7!qe9j9f%m$k1&wh9&jb=t=or&*-&(ji3&52'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ifootball.pl', '198.211.122.21']
 
 AUTH_USER_MODEL = 'app_football.User'
 
 CRONJOBS = [
-    ('*/1 * * * *', 'app_football.cron.scheduled_energy_regeneration')
+    ('*/5 * * * *', 'app_football.cron.scheduled_energy_regeneration')
 ]
 
 LOGIN_URL = '/login'
@@ -89,10 +89,10 @@ WSGI_APPLICATION = 'football_manager.wsgi.application'
 DATABASES = {
     'default': {
         'HOST': '127.0.0.1',
-        'NAME': 'aaa_finaleproject',
+        'NAME': 'football',
         'ENGINE': 'mysql.connector.django',
-        'USER': 'root',
-        'PASSWORD': 'coderslab',
+        'USER': 'bulikkk',
+        'PASSWORD': 'qwer1234',
         'OPTIONS': {
             'autocommit': True,
         }
@@ -136,3 +136,6 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+

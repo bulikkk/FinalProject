@@ -10,9 +10,11 @@ def create_teams_names():
     name = names.get_last_name()
     return name + " FC"
 
+
 def create_teams(user_id):
-    for i in range(15):
+    for i in range(7):
         Team.objects.create(name=create_teams_names(), user=None, player_id=user_id)
+
 
 def create_name():
     name = names.get_full_name(gender='male').split()

@@ -41,7 +41,7 @@ from app_football.views import (
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^main$', MainView.as_view(), name='main'),
+    url(r'^$', MainView.as_view(), name='main'),
     url(r'^index$', IndexView.as_view(), name='index'),
     url(r'^low_energy$', LowEnergyView.as_view(), name='low-energy'),
     url(r'^register$', RegisterUserView.as_view(), name='register'),
