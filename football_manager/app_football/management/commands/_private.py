@@ -3,7 +3,7 @@ from random import randint, choice
 
 from football_manager.settings import *
 from app_football.models import Player, Team, User, Match
-from django.contrib.auth.models import User
+
 
 
 def create_teams_names():

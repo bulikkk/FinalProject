@@ -11,7 +11,6 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from random import choice, randint
 
 from django.shortcuts import render, redirect, reverse
-from django.contrib.auth import login
 from django.http import HttpResponseRedirect
 from .models import Player, Team, Match
 from django.views import View
