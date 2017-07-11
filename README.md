@@ -2,7 +2,7 @@
 Easy web game about manageing your own football team.
 
 <h3>Nice, clear interface</h3>
-<p>It's not very complicated to play. All rules are written on the Main Page and you can easyli come back I check what to do.</p>
+<p>It's not very complicated to play. All rules are written on the Main Page and you can easyli come back and check what to do.</p>
 <p>At the beginning you have to Log In or Register (if you do not have an account). All personal informations are saved to database ONLY for Logging process.</p>
 
 <h3>Rules</h3>
