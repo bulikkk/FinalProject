@@ -15,3 +15,6 @@ Easy web game about manageing your own football team.
 
 <h3>I WISH LUCK AND NICE TIME!</h3>
 
+<br>
+<h2>Author:</h2>
+<h3>bulikkk | <a href="https://github.com/bulikkk">github</a></h3>
